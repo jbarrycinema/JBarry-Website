@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jack Barry / Cinematographer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,200&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #080808;
+    --white: #f4f2ee;
+    --dim: rgba(244,242,238,0.45);
+    --dimmer: rgba(244,242,238,0.18);
+    --accent: #f4895a;
+    --line: rgba(244,242,238,0.10);
+    --nav-h: 52px;
+    --right-w: 30%; 
+    --transition: 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    z-index: 100;
+    border-bottom: 1px solid var(--line);
+    background: rgba(8,8,8,0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .nav-brand {
+    font-size: 16px; /* Increased from 12px */
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-brand span { color: var(--dim); font-weight: 300; }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color 0.2s; cursor: pointer; }
+  .nav-links a:hover, .nav-links a.active { color: var(--white); }
+
+  /* ── LAYOUT ── */
+  .stage {
+    position: fixed;
+    top: var(--nav-h); left: 0; right: 0; bottom: 0;
+    display: grid;
+    grid-template-columns: calc(100% - var(--right-w)) var(--right-w);
+  }
+
+  .media-panel {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .video-wrap { position: absolute; inset: 0; }
+  .video-wrap video, .video-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity var(--transition); pointer-events: none; }
+  .video-wrap .active { opacity: 1; }
+
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 50%, transparent 40%, rgba(8,8,8,0.55) 100%),
+      linear-gradient(to right, rgba(8,8,8,0.25) 0%, transparent 60%),
+      linear-gradient(to top, rgba(8,8,8,0.85) 0%, transparent 45%);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* ── OVERLAY META ── */
+  .overlay-meta { position: absolute; bottom: 36px; left: 32px; z-index: 4; max-width: 900px; }
+  
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .meta-laurels {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    transition: opacity 0.3s;
+  }
+  .meta-laurels img {
+    height: 62px;
+    width: auto;
+    filter: brightness(0.95);
+  }
+
+  .meta-title { font-family: 'DM Serif Display', serif; font-size: clamp(36px, 5vw, 68px); font-weight: 400; line-height: 0.95; letter-spacing: -0.01em; color: var(--white); transition: opacity var(--transition), transform var(--transition); }
+  
+  .meta-swap { transition: opacity 0.25s, transform 0.3s; }
+  .meta-swap.fade-out { opacity: 0; transform: translateY(6px); }
+
+  .meta-tag { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .meta-tag::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  .meta-details { display: flex; align-items: center; gap: 0; font-size: 11px; font-weight: 300; letter-spacing: 0.10em; text-transform: uppercase; color: var(--dim); margin-bottom: 24px; flex-wrap: wrap; transition: opacity var(--transition); }
+  .meta-details .sep { margin: 0 12px; opacity: 0.35; }
+
+  .btn-view { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; border: 1px solid rgba(244,242,238,0.3); background: transparent; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.25s, border-color 0.25s, color 0.25s; text-decoration: none; }
+  .btn-view:hover { background: var(--white); color: var(--black); }
+
+  /* ── RIGHT PANEL ── */
+  .list-panel { 
+    display: flex; 
+    flex-direction: column; 
+    border-left: 1px solid var(--line); 
+    overflow: hidden; 
+    background: rgba(8, 8, 8, 0.15); 
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .list-header { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 44px; border-bottom: 1px solid var(--line); }
+  .list-header-left { font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
+  .list-header-right { font-size: 10px; font-weight: 300; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dimmer); }
+
+  .list-scroll { flex: 1; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: rgba(244,242,238,0.12) transparent; }
+
+  .project-item { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 0 14px; padding: 0 24px; height: 58px; border-bottom: 1px solid var(--line); cursor: pointer; position: relative; transition: background 0.4s; text-decoration: none; color: inherit; overflow: hidden; }
+  
+  .project-item::before {
+    content: ''; position: absolute; inset: -20px;
+    background: linear-gradient(115deg, transparent 10%, rgba(244, 137, 90, 0.15) 25%, rgba(90, 180, 244, 0.12) 45%, rgba(244, 210, 90, 0.10) 65%, rgba(90, 244, 215, 0.08) 85%, transparent 100%);
+    background-size: 250% 250%; filter: blur(12px); opacity: 0; transition: opacity 0.6s ease; z-index: 0; mix-blend-mode: screen;
+  }
+  .project-item:hover::before, .project-item.active::before { opacity: 1; animation: flowCinemaGradient 8s infinite alternate ease-in-out; }
+  @keyframes flowCinemaGradient { 0% { background-position: 0% 0%; transform: scale(1); } 50% { background-position: 100% 100%; transform: scale(1.1); } 100% { background-position: 50% 0%; transform: scale(1); } }
+
+  .project-item::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); opacity: 0; transition: opacity 0.3s; }
+  .project-item:hover, .project-item.active { background: rgba(255,255,255,0.03); }
+  .project-item:hover::after, .project-item.active::after { opacity: 1; }
+
+  .item-num, .item-title, .item-meta { position: relative; z-index: 1; }
+  .item-num { font-size: 10px; font-weight: 300; letter-spacing: 0.08em; color: var(--dimmer); text-align: right; }
+  .item-title { font-size: 14px; font-weight: 300; letter-spacing: 0.01em; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.3s; }
+  .project-item:hover .item-title, .project-item.active .item-title { color: var(--white); font-weight: 400; }
+
+  .item-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+  .item-type { font-size: 9px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dimmer); }
+  .item-year { font-size: 10px; font-weight: 300; letter-spacing: 0.08em; color: var(--dimmer); }
+
+  /* ── OVERLAYS ── */
+  .page-overlay { position: fixed; inset: 0; top: var(--nav-h); background: var(--black); z-index: 80; overflow-y: auto; opacity: 0; pointer-events: none; transform: translateY(18px); transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1); padding-bottom: 48px; }
+  .page-overlay.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .page-inner { max-width: 1100px; margin: 0 auto; padding: 64px 48px 48px; }
+  
+  .bio-grid { 
+    display: grid; 
+    grid-template-columns: 420px 1fr; 
+    gap: 48px; 
+    align-items: stretch; 
+    margin-bottom: 64px; 
+  }
+
+  .img-placeholder { 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(244,242,238,0.04); 
+    border: 1px dashed rgba(244,242,238,0.12); 
+    overflow: hidden; 
+  }
+  .img-placeholder img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  
+  .bio-content-col { display: flex; flex-direction: column; gap: 24px; }
+
+  .bio-text .bio-body { 
+    font-size: 15px; 
+    font-weight: 300; 
+    line-height: 1.8; 
+    color: var(--dim); 
+    border: 1px dashed rgba(244,242,238,0.10); 
+    padding: 32px; 
+    background: rgba(244,242,238,0.02); 
+    flex-grow: 1;
+  }
+
+  .links-container {
+    border: 1px dashed rgba(244,242,238,0.10); 
+    padding: 24px 32px;
+    background: rgba(244,242,238,0.015);
+  }
+
+  .links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+  .link-placeholder { display: flex; align-items: center; justify-content: center; padding: 12px; border: 1px solid rgba(244,242,238,0.12); background: rgba(244,242,238,0.02); transition: background 0.2s; height: 50px; }
+  .link-placeholder img { max-height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.5; }
+
+  /* ── ABOUT VIDEO SECTIONS ── */
+  .about-video-section { margin-top: 48px; position: relative; }
+  .about-video-wrap {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border: 1px solid var(--line);
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .about-video-wrap video { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: opacity 0.4s ease; }
+  .about-video-wrap:hover video { opacity: 1; }
+  .video-play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(8,8,8,0.25); transition: opacity 0.3s; pointer-events: none; }
+  .about-video-wrap:hover .video-play-overlay { opacity: 0; }
+  .play-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); border: 1px solid var(--white); padding: 8px 16px; pointer-events: none; backdrop-filter: blur(4px); }
+
+  .fullscreen-toggle { position: absolute; top: 16px; right: 16px; z-index: 10; width: 32px; height: 32px; background: rgba(8,8,8,0.5); border: 1px solid rgba(244,242,238,0.2); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s, background 0.2s; cursor: pointer; backdrop-filter: blur(8px); }
+  .about-video-wrap:hover .fullscreen-toggle { opacity: 1; }
+  .fullscreen-toggle:hover { background: var(--white); }
+  .fullscreen-toggle svg { width: 14px; height: 14px; color: var(--white); transition: color 0.2s; }
+  .fullscreen-toggle:hover svg { color: var(--black); }
+
+  @media (max-width: 900px) {
+    .bio-grid { grid-template-columns: 1fr; }
+    .img-placeholder { aspect-ratio: 4/5; height: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand">Jack Barry <span>/ Cinematographer</span></a>
+  <ul class="nav-links">
+    <li><a data-page="film" class="active">Film and Documentary</a></li>
+    <li><a data-page="operating">Operating</a></li>
+    <li><a data-page="about">About</a></li>
+    <li><a data-page="contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="stage">
+  <div class="media-panel" id="mediaPanel">
+    <div class="video-wrap" id="videoWrap"></div>
+    <div class="vignette"></div>
+    <div class="overlay-meta">
+      <div class="meta-tag" id="metaTag">Selected — Film</div>
+      
+      <div class="title-row">
+        <div class="meta-title meta-swap" id="metaTitle">Loading...</div>
+        <div id="metaLaurels" class="meta-laurels meta-swap"></div>
+      </div>
+
+      <div class="meta-details meta-swap" id="metaDetails">
+        <span id="metaYear">0000</span>
+        <span class="sep">/</span>
+        <span id="metaDirector">Dir. Name</span>
+        <span class="sep">/</span>
+        <span id="metaTags">Tags</span>
+      </div>
+      <a href="#" target="_blank" class="btn-view" id="btnView">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polygon points="0,0 10,5 0,10" fill="currentColor"/></svg>
+        View Project
+      </a>
+    </div>
+  </div>
+
+  <div class="list-panel">
+    <div class="list-header">
+      <span class="list-header-left" id="listTitle">Film & Documentary</span>
+      <span class="list-header-right" id="reelCount">00 · Reel '26</span>
+    </div>
+    <div class="list-scroll" id="projectList"></div>
+  </div>
+</div>
+
+<div class="footer-bar">
+  <span>2026 · Selected Works</span>
+  <span>Jack Barry · Cinematography</span>
+</div>
+
+<!-- ABOUT PAGE -->
+<div class="page-overlay" id="aboutPage">
+  <div class="page-inner">
+    <div class="page-heading">About</div>
+    
+    <div class="bio-grid">
+      <!-- LEFT: PHOTO -->
+      <div class="img-placeholder">
+        <img src="https://i.postimg.cc/qR1VPBw2/jack-onset-lenses.jpg" alt="Jack Barry On Set">
+      </div>
+
+      <!-- RIGHT: BIO + LINKS -->
+      <div class="bio-content-col">
+        <div class="bio-text">
+          <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dimmer); margin-bottom: 12px;">Biography</div>
+          <div class="bio-body">
+            Jack Barry is a cinematographer based in Los Angeles, CA, and Upstate New York. Jack's enthusiasm, creativity, and technical ability allow for his images and visual storytelling to surpass any constraint of genre, story, and spectacle. His ability to realize emotion on screen through operating has allowed him opportunities to capture and tell stories with clients like Coca-Cola, Fox Sports, and others. With keen sensibility for simple, bold, situational approaches to lighting and framing, Jack has enhanced stories for narrative film production, commercials, and award-winning documentaries with no limitation on scope or budget. Jack’s determination to push new technology, paired with his appreciation for historic and analog methods of filmmaking, has shaped timely, original stories with his unique voice that inspires excitement for the future of cinematography.
+          </div>
+        </div>
+
+        <div class="links-container">
+          <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dimmer);">Digital Presence</div>
+          <div class="links-grid">
+            <a href="https://www.instagram.com/jackb.dop/" target="_blank" class="link-placeholder"><img src="https://i.postimg.cc/kGwQNznP/instagram-logo1.webp" alt="Instagram"></a>
+            <a href="https://www.youtube.com/@JackBarry-dop" target="_blank" class="link-placeholder"><img src="https://i.postimg.cc/7Lvx9LtH/youtube-logo.png" alt="YouTube"></a>
+            <a href="https://www.imdb.com/name/nm17324923/?ref_=fn_t_10" target="_blank" class="link-placeholder"><img src="https://i.postimg.cc/PJKWb9t5/IMDb-Emblem.png" alt="IMDb"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: REEL -->
+    <div class="about-video-section">
+      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
+        Featured Reel
+      </div>
+      <div class="about-video-wrap" id="containerReel">
+        <button class="fullscreen-toggle" title="Fullscreen">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        </button>
+        <video id="vidReel" loop playsinline muted>
+          <source src="https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779304035/DP_Reel_for_Website_j0x9ih.mp4" type="video/mp4">
+        </video>
+        <div class="video-play-overlay">
+          <div class="play-label">Click for Sound</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: BTS -->
+    <div class="about-video-section">
+      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
+        How it Was Made - 72 Hours on Gardraxis and A Prom for the Stars
+      </div>
+      <div class="about-video-wrap" id="containerBTS">
+        <button class="fullscreen-toggle" title="Fullscreen">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        </button>
+        <video id="vidBTS" loop playsinline muted>
+          <source src="https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779304914/Craft_Presentation_for_Site_ul8nve.mp4" type="video/mp4">
+        </video>
+        <div class="video-play-overlay">
+          <div class="play-label">Click for Sound</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: RECREATION -->
+    <div class="about-video-section">
+      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
+        "Away We Go" Shot Recreation 2024
+      </div>
+      <div class="about-video-wrap" id="containerRecreation">
+        <button class="fullscreen-toggle" title="Fullscreen">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        </button>
+        <video id="vidRecreation" loop playsinline muted>
+          <source src="https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779305156/Jack_ParkShotRecreation_ofuakl.mp4" type="video/mp4">
+        </video>
+        <div class="video-play-overlay">
+          <div class="play-label">Click for Sound</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div class="page-overlay" id="contactPage">
+  <div class="page-inner">
+    <div class="page-label">Contact</div>
+    <div class="bio-text"><div class="bio-body">Email: JBarryCinema@gmail.com <br> Phone: (518) 538-6567 <br> Los Angeles, CA - Upstate, NY</div></div>
+  </div>
+</div>
+
+<script>
+const DEMO = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+
+const filmProjects = [
+  { title: '72 Hours on Gardraxis', year: '2026', director: 'Dir. Benjamin Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779299500/72_Hours_on_Gardraxis_Trailer_sk1dtn.mp4', link: '' },
+  { title: 'A Prom for the Stars', year: '2026', director: 'Dir. Lucas Sherron', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779299489/A_Prom_for_the_Stars_Trailer_v8t92a.mp4', link: '' },
+  { title: 'Seven Minutes', year: '2025', director: 'Dir. Benjamin Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779234317/Seven_Minutes_Trailer_ci6ley.mp4', link: '' },
+  { title: 'A Pound of Flesh', year: '2025', director: 'Dir. Benjamin Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779234302/A_Pound_of_Flesh_Trailer_qask6w.mp4', link: '' },
+  { title: 'HiHKAL', year: '2024', director: 'Dir. Deegan Melchiondo', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779234225/HiHKAL_Trailer_j8fadl.mp4', link: '' },
+  { title: 'ROC The Eclipse', year: '2024', director: 'Dir. Lucas Sherron', tags: 'Short · Documentary', type: 'DOCU', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779234294/ROC_Eclipse_Trailer_k3cdwi.mp4', laurels: ['https://i.postimg.cc/YCJx5dpv/Riff-Best-of-Fest-Laurel.png', 'https://i.postimg.cc/9Q4pg6jc/Official-Selection-RIFFtransparent.png'], link: '' },
+  { title: 'Stallard', year: '2023', director: 'Dir. Lucas Sherron', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779234237/Stallard_Trailer_wujd9a.mp4', link: '' },
+  { title: 'Submerged Signal', year: '2024', director: 'Dir. Various', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779217114/submerged_signal_trailer_t1pjnd.mp4', link: '' },
+  { title: 'The Watch', year: '2023', director: 'Dir. Benjamin Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779299395/The_Watch_Trailer_rtywaw.mp4', link: '' },
+  { title: 'Judgement Call', year: '2023', director: 'Dir. Lucas Sherron', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779234282/Judgement_Call_Trailer_qbutfs.mp4', link: '' },
+  { title: 'Still Hear', year: '2023', director: 'Dir. Lucas Sherron', tags: 'Short · Documentary', type: 'DOCU', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779990268/Still_Hear_Trailer_odqzma.mp4', link: '' },
+  { title: 'What Now?', year: '2023', director: 'Dir. Parker Long', tags: 'Short · Experimental', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779990198/What_Now_Trailer_qaoeme.mp4', link: '' },
+  { title: 'Ouroboros', year: '2023', director: 'Dir. Ben Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779990265/Ouroboros_Trailer_nteskb.mp4', link: '' },
+  { title: 'Wither', year: '2023', director: 'Dir. Ria Coleman', tags: 'Experimental · Installation', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779993469/Wither_Trailer_mnraoa.mp4', link: '' }
+];
+
+const operatingProjects = [
+  { title: "Coca-Cola Refreshing Films: How's the View", year: '2024', director: 'Dir. Louisa Duchin', tags: 'Commercial · Remote Head Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/SKy7Dj12/Screenshot-2026-05-26-at-2-33-19-PM.png', link: 'https://www.coca-cola.com/us/en/offerings/refreshing-films/the-vault', pos: '25% center' },
+  { title: 'Northeast', year: '2025', director: 'Dir. Gilbert McCauley', tags: 'Short · A-Cam', type: 'OPER', videoUrl: 'https://i.postimg.cc/Bv1WqSfr/Coming-Soon.jpg', pos: '25% center', link: '' },
+  { title: 'Whiskey Distillery', year: '2025', director: 'Dir. Various', tags: 'Commercial · Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/Bv1WqSfr/Coming-Soon.jpg', pos: '25% center', link: '' },
+  { title: 'Fox Sports Live Broadcast: Saratoga Horse Racing', year: '2023', director: 'Dir. Various', tags: 'Live Broadcast · Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/sXPthML5/Fox-Sports.png', link: 'https://www.foxsports.com/horse-racing/videos', pos: '35% center' },
+  { title: 'NYRA Broadcast and Simulcast', year: '2023', director: 'Dir. Various', tags: 'Live Broadcast · Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/dtCxfHvn/NYRA-Logo.png', link: 'https://www.youtube.com/@thenyra', pos: '25% center' },
+  { title: 'The Chickening', year: '2025', director: 'Dir. Jacob French', tags: 'Short · 16mm', type: 'OPER', videoUrl: 'https://i.postimg.cc/SszPpDCq/Screenshot-2026-05-26-at-3-13-13-PM.png', link: 'https://www.imdb.com/title/tt34272041/?ref_=ext_shr_lnk' },
+  { title: 'Methane Truck', year: '2024', director: 'Dir. Jahaad Shairi', tags: 'Music Video · Remote Head Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/YqmQfTkG/JBWFB-Methane-Cover.jpg', link: 'https://www.youtube.com/@jbwfb', pos: '25% center' },
+  { title: '10 Minutes', year: '2025', director: 'Dir. Andrew Schlegel', tags: 'Short · Remote Head Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/T1T7zG93/10minutespic.jpg', link: 'https://www.instagram.com/10minutes.film?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', pos: '25% center' },
+  { title: 'Creatures of Habit', year: '2023', director: 'Dir. Andrew Alvarez', tags: 'Feature · Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/mZcyrPPw/COH-logo.jpg', link: 'https://vimeo.com/897302712?share=copy', pos: '25% center' },
+  { title: 'The Eternal Flame', year: '2024', director: 'Dir. Jack Barry', tags: 'Short · Remote Head Operator', type: 'OPER', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779992493/Eternal_Flame_Trailer_twjwv8.mp4', link: '' },
+];
+
+let currentCategoryData = filmProjects;
+let videoEls = [];
+let currentIndex = 0;
+let swapTimer = null;
+
+const videoWrap = document.getElementById('videoWrap');
+const projectList = document.getElementById('projectList');
+const listTitle = document.getElementById('listTitle');
+const reelCount = document.getElementById('reelCount');
+const metaTitle = document.getElementById('metaTitle');
+const metaLaurels = document.getElementById('metaLaurels');
+const metaYear = document.getElementById('metaYear');
+const metaDir = document.getElementById('metaDirector');
+const metaTags = document.getElementById('metaTags');
+const metaTag = document.getElementById('metaTag');
+const btnView = document.getElementById('btnView');
+
+function loadProjects(data, title) {
+  currentCategoryData = data;
+  currentIndex = 0;
+  videoWrap.innerHTML = '';
+  projectList.innerHTML = '';
+  videoEls = [];
+  listTitle.textContent = title;
+  reelCount.textContent = `${data.length} · Reel '26`;
+
+  data.forEach((p, i) => {
+    let media;
+    if (p.videoUrl.match(/\.(jpeg|jpg|gif|png|webp)$/) != null) {
+      media = document.createElement('img');
+    } else {
+      media = document.createElement('video');
+      media.muted = true; media.loop = true; media.playsInline = true; media.preload = 'auto';
+    }
+    media.src = p.videoUrl;
+    if (p.pos) media.style.objectPosition = p.pos;
+    videoWrap.appendChild(media);
+    videoEls.push(media);
+  });
+
+  data.forEach((p, i) => {
+    const item = document.createElement('div');
+    item.className = 'project-item' + (i === 0 ? ' active' : '');
+    item.innerHTML = `<span class="item-num">${String(i + 1).padStart(2, '0')}</span><span class="item-title">${p.title}</span><span class="item-meta"><span class="item-type">${p.type}</span><span class="item-year">${p.year}</span></span>`;
+    item.addEventListener('mouseenter', () => activateProject(i));
+    projectList.appendChild(item);
+  });
+  activateProject(0, true);
+}
+
+function activateProject(index, force = false) {
+  if (index === currentIndex && !force) return;
+  const prev = currentIndex;
+  currentIndex = index;
+  if (videoEls[prev]) { videoEls[prev].classList.remove('active'); if(videoEls[prev].tagName==='VIDEO') videoEls[prev].pause(); }
+  const next = videoEls[index];
+  if (next) { next.currentTime = 0; if(next.tagName==='VIDEO') next.play().catch(() => {}); next.classList.add('active'); }
+  document.querySelectorAll('.project-item').forEach((el, i) => el.classList.toggle('active', i === index));
+  const swappable = document.querySelectorAll('.meta-swap');
+  swappable.forEach(el => el.classList.add('fade-out'));
+  clearTimeout(swapTimer);
+  swapTimer = setTimeout(() => {
+    const p = currentCategoryData[index];
+    metaTitle.textContent = p.title;
+    metaYear.textContent = p.year;
+    metaDir.textContent = p.director;
+    metaTags.textContent = p.tags;
+    metaTag.textContent = `Selected — ${p.type}`;
+    
+    if (p.link && p.link !== "") {
+      btnView.href = p.link;
+      btnView.style.display = 'inline-flex';
+    } else {
+      btnView.style.display = 'none';
+    }
+
+    metaLaurels.innerHTML = '';
+    if (p.laurels) { p.laurels.forEach(url => { const img = document.createElement('img'); img.src = url; metaLaurels.appendChild(img); }); }
+    swappable.forEach(el => el.classList.remove('fade-out'));
+  }, 220);
+}
+
+const navLinks = document.querySelectorAll('.nav-links a');
+const aboutPage = document.getElementById('aboutPage');
+const contactPage = document.getElementById('contactPage');
+navLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    const page = link.getAttribute('data-page');
+    aboutPage.classList.remove('visible'); contactPage.classList.remove('visible');
+    if (page === 'film' || page === 'operating') {
+        navLinks.forEach(l => l.classList.remove('active')); link.classList.add('active');
+        if (page === 'film') loadProjects(filmProjects, 'Film & Documentary');
+        if (page === 'operating') loadProjects(operatingProjects, 'Camera Operating');
+    } else { if (page === 'about') aboutPage.classList.add('visible'); if (page === 'contact') contactPage.classList.add('visible'); }
+  });
+});
+[aboutPage, contactPage].forEach(p => p.addEventListener('click', (e) => { if(e.target === p) p.classList.remove('visible'); }));
+
+function setupAboutVideo(containerId, videoId) {
+  const container = document.getElementById(containerId);
+  const video = document.getElementById(videoId);
+  const overlay = container.querySelector('.video-play-overlay');
+  const fsBtn = container.querySelector('.fullscreen-toggle');
+  container.addEventListener('mouseenter', () => { video.play().catch(() => {}); });
+  container.addEventListener('mouseleave', () => { if (video.muted) video.pause(); });
+  fsBtn.addEventListener('click', (e) => { e.stopPropagation(); if (video.requestFullscreen) video.requestFullscreen(); else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen(); });
+  video.addEventListener('fullscreenchange', () => { video.controls = !!document.fullscreenElement; });
+  container.addEventListener('click', () => { if (video.muted) { video.muted = false; video.currentTime = 0; video.play(); overlay.style.opacity = '0'; } else { video.muted = true; overlay.style.opacity = '1'; } });
+}
+setupAboutVideo('containerReel', 'vidReel');
+setupAboutVideo('containerBTS', 'vidBTS');
+setupAboutVideo('containerRecreation', 'vidRecreation');
+loadProjects(filmProjects, 'Film & Documentary');
+</script>
+</body>
+</html>
