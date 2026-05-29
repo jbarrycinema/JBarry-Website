@@ -48,7 +48,7 @@
   }
 
   .nav-brand {
-    font-size: 16px; /* Increased from 12px */
+    font-size: 16px; 
     font-weight: 400;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -68,6 +68,11 @@
     top: var(--nav-h); left: 0; right: 0; bottom: 0;
     display: grid;
     grid-template-columns: calc(100% - var(--right-w)) var(--right-w);
+    transition: opacity 0.4s ease;
+  }
+  .stage.hidden-by-overlay {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .media-panel {
@@ -93,60 +98,30 @@
 
   /* ── OVERLAY META ── */
   .overlay-meta { position: absolute; bottom: 36px; left: 32px; z-index: 4; max-width: 900px; }
-  
-  .title-row {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-bottom: 16px;
-    flex-wrap: wrap;
-  }
-
-  .meta-laurels {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    transition: opacity 0.3s;
-  }
-  .meta-laurels img {
-    height: 62px;
-    width: auto;
-    filter: brightness(0.95);
-  }
-
+  .title-row { display: flex; align-items: center; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
+  .meta-laurels { display: flex; gap: 12px; align-items: center; transition: opacity 0.3s; }
+  .meta-laurels img { height: 62px; width: auto; filter: brightness(0.95); }
   .meta-title { font-family: 'DM Serif Display', serif; font-size: clamp(36px, 5vw, 68px); font-weight: 400; line-height: 0.95; letter-spacing: -0.01em; color: var(--white); transition: opacity var(--transition), transform var(--transition); }
-  
   .meta-swap { transition: opacity 0.25s, transform 0.3s; }
   .meta-swap.fade-out { opacity: 0; transform: translateY(6px); }
-
   .meta-tag { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
   .meta-tag::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-
   .meta-details { display: flex; align-items: center; gap: 0; font-size: 11px; font-weight: 300; letter-spacing: 0.10em; text-transform: uppercase; color: var(--dim); margin-bottom: 24px; flex-wrap: wrap; transition: opacity var(--transition); }
   .meta-details .sep { margin: 0 12px; opacity: 0.35; }
-
   .btn-view { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; border: 1px solid rgba(244,242,238,0.3); background: transparent; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.25s, border-color 0.25s, color 0.25s; text-decoration: none; }
   .btn-view:hover { background: var(--white); color: var(--black); }
 
   /* ── RIGHT PANEL ── */
   .list-panel { 
-    display: flex; 
-    flex-direction: column; 
-    border-left: 1px solid var(--line); 
-    overflow: hidden; 
+    display: flex; flex-direction: column; border-left: 1px solid var(--line); overflow: hidden; 
     background: rgba(8, 8, 8, 0.15); 
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
   }
-  
   .list-header { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 44px; border-bottom: 1px solid var(--line); }
   .list-header-left { font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
   .list-header-right { font-size: 10px; font-weight: 300; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dimmer); }
-
   .list-scroll { flex: 1; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: rgba(244,242,238,0.12) transparent; }
-
   .project-item { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 0 14px; padding: 0 24px; height: 58px; border-bottom: 1px solid var(--line); cursor: pointer; position: relative; transition: background 0.4s; text-decoration: none; color: inherit; overflow: hidden; }
-  
   .project-item::before {
     content: ''; position: absolute; inset: -20px;
     background: linear-gradient(115deg, transparent 10%, rgba(244, 137, 90, 0.15) 25%, rgba(90, 180, 244, 0.12) 45%, rgba(244, 210, 90, 0.10) 65%, rgba(90, 244, 215, 0.08) 85%, transparent 100%);
@@ -154,16 +129,13 @@
   }
   .project-item:hover::before, .project-item.active::before { opacity: 1; animation: flowCinemaGradient 8s infinite alternate ease-in-out; }
   @keyframes flowCinemaGradient { 0% { background-position: 0% 0%; transform: scale(1); } 50% { background-position: 100% 100%; transform: scale(1.1); } 100% { background-position: 50% 0%; transform: scale(1); } }
-
   .project-item::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); opacity: 0; transition: opacity 0.3s; }
   .project-item:hover, .project-item.active { background: rgba(255,255,255,0.03); }
   .project-item:hover::after, .project-item.active::after { opacity: 1; }
-
   .item-num, .item-title, .item-meta { position: relative; z-index: 1; }
   .item-num { font-size: 10px; font-weight: 300; letter-spacing: 0.08em; color: var(--dimmer); text-align: right; }
   .item-title { font-size: 14px; font-weight: 300; letter-spacing: 0.01em; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.3s; }
   .project-item:hover .item-title, .project-item.active .item-title { color: var(--white); font-weight: 400; }
-
   .item-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
   .item-type { font-size: 9px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dimmer); }
   .item-year { font-size: 10px; font-weight: 300; letter-spacing: 0.08em; color: var(--dimmer); }
@@ -172,65 +144,24 @@
   .page-overlay { position: fixed; inset: 0; top: var(--nav-h); background: var(--black); z-index: 80; overflow-y: auto; opacity: 0; pointer-events: none; transform: translateY(18px); transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1); padding-bottom: 48px; }
   .page-overlay.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
   .page-inner { max-width: 1100px; margin: 0 auto; padding: 64px 48px 48px; }
-  
-  .bio-grid { 
-    display: grid; 
-    grid-template-columns: 420px 1fr; 
-    gap: 48px; 
-    align-items: stretch; 
-    margin-bottom: 64px; 
-  }
-
-  .img-placeholder { 
-    width: 100%; 
-    height: 100%; 
-    background: rgba(244,242,238,0.04); 
-    border: 1px dashed rgba(244,242,238,0.12); 
-    overflow: hidden; 
-  }
+  .bio-grid { display: grid; grid-template-columns: 420px 1fr; gap: 48px; align-items: stretch; margin-bottom: 64px; }
+  .img-placeholder { width: 100%; height: 100%; background: rgba(244,242,238,0.04); border: 1px dashed rgba(244,242,238,0.12); overflow: hidden; }
   .img-placeholder img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  
   .bio-content-col { display: flex; flex-direction: column; gap: 24px; }
-
-  .bio-text .bio-body { 
-    font-size: 15px; 
-    font-weight: 300; 
-    line-height: 1.8; 
-    color: var(--dim); 
-    border: 1px dashed rgba(244,242,238,0.10); 
-    padding: 32px; 
-    background: rgba(244,242,238,0.02); 
-    flex-grow: 1;
-  }
-
-  .links-container {
-    border: 1px dashed rgba(244,242,238,0.10); 
-    padding: 24px 32px;
-    background: rgba(244,242,238,0.015);
-  }
-
+  .bio-text .bio-body { font-size: 15px; font-weight: 300; line-height: 1.8; color: var(--dim); border: 1px dashed rgba(244,242,238,0.10); padding: 32px; background: rgba(244,242,238,0.02); flex-grow: 1; }
+  .links-container { border: 1px dashed rgba(244,242,238,0.10); padding: 24px 32px; background: rgba(244,242,238,0.015); }
   .links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
   .link-placeholder { display: flex; align-items: center; justify-content: center; padding: 12px; border: 1px solid rgba(244,242,238,0.12); background: rgba(244,242,238,0.02); transition: background 0.2s; height: 50px; }
   .link-placeholder img { max-height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.5; }
 
-  /* ── ABOUT VIDEO SECTIONS ── */
+  /* ── ABOUT VIDEOS ── */
   .about-video-section { margin-top: 48px; position: relative; }
-  .about-video-wrap {
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: #000;
-    border: 1px solid var(--line);
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
+  .about-video-wrap { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid var(--line); position: relative; cursor: pointer; overflow: hidden; margin-bottom: 12px; }
   .about-video-wrap video { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: opacity 0.4s ease; }
   .about-video-wrap:hover video { opacity: 1; }
   .video-play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(8,8,8,0.25); transition: opacity 0.3s; pointer-events: none; }
   .about-video-wrap:hover .video-play-overlay { opacity: 0; }
   .play-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); border: 1px solid var(--white); padding: 8px 16px; pointer-events: none; backdrop-filter: blur(4px); }
-
   .fullscreen-toggle { position: absolute; top: 16px; right: 16px; z-index: 10; width: 32px; height: 32px; background: rgba(8,8,8,0.5); border: 1px solid rgba(244,242,238,0.2); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s, background 0.2s; cursor: pointer; backdrop-filter: blur(8px); }
   .about-video-wrap:hover .fullscreen-toggle { opacity: 1; }
   .fullscreen-toggle:hover { background: var(--white); }
@@ -238,6 +169,10 @@
   .fullscreen-toggle:hover svg { color: var(--black); }
 
   @media (max-width: 900px) {
+    :root { --right-w: 100%; }
+    .stage { grid-template-columns: 1fr; grid-template-rows: 50vh 50vh; }
+    .media-panel { grid-row: 1; }
+    .list-panel { grid-row: 2; border-left: none; border-top: 1px solid var(--line); background: var(--black); }
     .bio-grid { grid-template-columns: 1fr; }
     .img-placeholder { aspect-ratio: 4/5; height: auto; }
   }
@@ -255,18 +190,16 @@
   </ul>
 </nav>
 
-<div class="stage">
-  <div class="media-panel" id="mediaPanel">
+<div class="stage" id="mainStage">
+  <div class="media-panel">
     <div class="video-wrap" id="videoWrap"></div>
     <div class="vignette"></div>
     <div class="overlay-meta">
       <div class="meta-tag" id="metaTag">Selected — Film</div>
-      
       <div class="title-row">
         <div class="meta-title meta-swap" id="metaTitle">Loading...</div>
         <div id="metaLaurels" class="meta-laurels meta-swap"></div>
       </div>
-
       <div class="meta-details meta-swap" id="metaDetails">
         <span id="metaYear">0000</span>
         <span class="sep">/</span>
@@ -299,14 +232,8 @@
 <div class="page-overlay" id="aboutPage">
   <div class="page-inner">
     <div class="page-heading">About</div>
-    
     <div class="bio-grid">
-      <!-- LEFT: PHOTO -->
-      <div class="img-placeholder">
-        <img src="https://i.postimg.cc/qR1VPBw2/jack-onset-lenses.jpg" alt="Jack Barry On Set">
-      </div>
-
-      <!-- RIGHT: BIO + LINKS -->
+      <div class="img-placeholder"><img src="https://i.postimg.cc/qR1VPBw2/jack-onset-lenses.jpg" alt="Jack Barry On Set"></div>
       <div class="bio-content-col">
         <div class="bio-text">
           <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dimmer); margin-bottom: 12px;">Biography</div>
@@ -314,7 +241,6 @@
             Jack Barry is a cinematographer based in Los Angeles, CA, and Upstate New York. Jack's enthusiasm, creativity, and technical ability allow for his images and visual storytelling to surpass any constraint of genre, story, and spectacle. His ability to realize emotion on screen through operating has allowed him opportunities to capture and tell stories with clients like Coca-Cola, Fox Sports, and others. With keen sensibility for simple, bold, situational approaches to lighting and framing, Jack has enhanced stories for narrative film production, commercials, and award-winning documentaries with no limitation on scope or budget. Jack’s determination to push new technology, paired with his appreciation for historic and analog methods of filmmaking, has shaped timely, original stories with his unique voice that inspires excitement for the future of cinematography.
           </div>
         </div>
-
         <div class="links-container">
           <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dimmer);">Digital Presence</div>
           <div class="links-grid">
@@ -326,63 +252,31 @@
       </div>
     </div>
 
-    <!-- SECTION 1: REEL -->
+    <!-- VIDEOS -->
     <div class="about-video-section">
-      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-        <span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
-        Featured Reel
-      </div>
+      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>Featured Reel</div>
       <div class="about-video-wrap" id="containerReel">
-        <button class="fullscreen-toggle" title="Fullscreen">
-           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-        </button>
-        <video id="vidReel" loop playsinline muted>
-          <source src="https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779304035/DP_Reel_for_Website_j0x9ih.mp4" type="video/mp4">
-        </video>
-        <div class="video-play-overlay">
-          <div class="play-label">Click for Sound</div>
-        </div>
+        <button class="fullscreen-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
+        <video id="vidReel" loop playsinline muted><source src="https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779304035/DP_Reel_for_Website_j0x9ih.mp4" type="video/mp4"></video>
+        <div class="video-play-overlay"><div class="play-label">Click for Sound</div></div>
       </div>
     </div>
-
-    <!-- SECTION 2: BTS -->
     <div class="about-video-section">
-      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-        <span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
-        How it Was Made - 72 Hours on Gardraxis and A Prom for the Stars
-      </div>
+      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>How it Was Made - 72 Hours on Gardraxis and A Prom for the Stars</div>
       <div class="about-video-wrap" id="containerBTS">
-        <button class="fullscreen-toggle" title="Fullscreen">
-           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-        </button>
-        <video id="vidBTS" loop playsinline muted>
-          <source src="https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779304914/Craft_Presentation_for_Site_ul8nve.mp4" type="video/mp4">
-        </video>
-        <div class="video-play-overlay">
-          <div class="play-label">Click for Sound</div>
-        </div>
+        <button class="fullscreen-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
+        <video id="vidBTS" loop playsinline muted><source src="https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779304914/Craft_Presentation_for_Site_ul8nve.mp4" type="video/mp4"></video>
+        <div class="video-play-overlay"><div class="play-label">Click for Sound</div></div>
       </div>
     </div>
-
-    <!-- SECTION 3: RECREATION -->
     <div class="about-video-section">
-      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-        <span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>
-        "Away We Go" Shot Recreation 2024
-      </div>
+      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>"Away We Go" Shot Recreation 2024</div>
       <div class="about-video-wrap" id="containerRecreation">
-        <button class="fullscreen-toggle" title="Fullscreen">
-           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-        </button>
-        <video id="vidRecreation" loop playsinline muted>
-          <source src="https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779305156/Jack_ParkShotRecreation_ofuakl.mp4" type="video/mp4">
-        </video>
-        <div class="video-play-overlay">
-          <div class="play-label">Click for Sound</div>
-        </div>
+        <button class="fullscreen-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
+        <video id="vidRecreation" loop playsinline muted><source src="https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779305156/Jack_ParkShotRecreation_ofuakl.mp4" type="video/mp4"></video>
+        <div class="video-play-overlay"><div class="play-label">Click for Sound</div></div>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -390,13 +284,12 @@
 <div class="page-overlay" id="contactPage">
   <div class="page-inner">
     <div class="page-label">Contact</div>
-    <div class="bio-text"><div class="bio-body">Email: JBarryCinema@gmail.com <br> Phone: (518) 538-6567 <br> Los Angeles, CA - Upstate, NY</div></div>
+    <div class="bio-text"><div class="bio-body">Email: contact@jackabarry.com <br> Phone: (518) 538-6567 <br> Los Angeles, CA - Upstate, NY</div></div>
   </div>
 </div>
 
 <script>
 const DEMO = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
-
 const filmProjects = [
   { title: '72 Hours on Gardraxis', year: '2026', director: 'Dir. Benjamin Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779299500/72_Hours_on_Gardraxis_Trailer_sk1dtn.mp4', link: '' },
   { title: 'A Prom for the Stars', year: '2026', director: 'Dir. Lucas Sherron', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779299489/A_Prom_for_the_Stars_Trailer_v8t92a.mp4', link: '' },
@@ -413,7 +306,6 @@ const filmProjects = [
   { title: 'Ouroboros', year: '2023', director: 'Dir. Ben Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779990265/Ouroboros_Trailer_nteskb.mp4', link: '' },
   { title: 'Wither', year: '2023', director: 'Dir. Ria Coleman', tags: 'Experimental · Installation', type: 'FILM', videoUrl: 'https://res.cloudinary.com/dhdhnkhoi/video/upload/v1779993469/Wither_Trailer_mnraoa.mp4', link: '' }
 ];
-
 const operatingProjects = [
   { title: "Coca-Cola Refreshing Films: How's the View", year: '2024', director: 'Dir. Louisa Duchin', tags: 'Commercial · Remote Head Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/SKy7Dj12/Screenshot-2026-05-26-at-2-33-19-PM.png', link: 'https://www.coca-cola.com/us/en/offerings/refreshing-films/the-vault', pos: '25% center' },
   { title: 'Northeast', year: '2025', director: 'Dir. Gilbert McCauley', tags: 'Short · A-Cam', type: 'OPER', videoUrl: 'https://i.postimg.cc/Bv1WqSfr/Coming-Soon.jpg', pos: '25% center', link: '' },
@@ -434,6 +326,7 @@ let swapTimer = null;
 
 const videoWrap = document.getElementById('videoWrap');
 const projectList = document.getElementById('projectList');
+const mainStage = document.getElementById('mainStage');
 const listTitle = document.getElementById('listTitle');
 const reelCount = document.getElementById('reelCount');
 const metaTitle = document.getElementById('metaTitle');
@@ -471,7 +364,15 @@ function loadProjects(data, title) {
     const item = document.createElement('div');
     item.className = 'project-item' + (i === 0 ? ' active' : '');
     item.innerHTML = `<span class="item-num">${String(i + 1).padStart(2, '0')}</span><span class="item-title">${p.title}</span><span class="item-meta"><span class="item-type">${p.type}</span><span class="item-year">${p.year}</span></span>`;
+    
+    // Desktop Hover
     item.addEventListener('mouseenter', () => activateProject(i));
+    // Touchscreen / Mobile Click
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      activateProject(i);
+    });
+    
     projectList.appendChild(item);
   });
   activateProject(0, true);
@@ -495,50 +396,114 @@ function activateProject(index, force = false) {
     metaDir.textContent = p.director;
     metaTags.textContent = p.tags;
     metaTag.textContent = `Selected — ${p.type}`;
-    
-    if (p.link && p.link !== "") {
-      btnView.href = p.link;
-      btnView.style.display = 'inline-flex';
-    } else {
-      btnView.style.display = 'none';
-    }
-
+    if (p.link && p.link !== "") { btnView.href = p.link; btnView.style.display = 'inline-flex'; } else { btnView.style.display = 'none'; }
     metaLaurels.innerHTML = '';
     if (p.laurels) { p.laurels.forEach(url => { const img = document.createElement('img'); img.src = url; metaLaurels.appendChild(img); }); }
     swappable.forEach(el => el.classList.remove('fade-out'));
   }, 220);
 }
 
+// ── NAVIGATION LOGIC ──
 const navLinks = document.querySelectorAll('.nav-links a');
 const aboutPage = document.getElementById('aboutPage');
 const contactPage = document.getElementById('contactPage');
+
 navLinks.forEach(link => {
   link.addEventListener('click', (e) => {
     const page = link.getAttribute('data-page');
-    aboutPage.classList.remove('visible'); contactPage.classList.remove('visible');
-    if (page === 'film' || page === 'operating') {
-        navLinks.forEach(l => l.classList.remove('active')); link.classList.add('active');
-        if (page === 'film') loadProjects(filmProjects, 'Film & Documentary');
-        if (page === 'operating') loadProjects(operatingProjects, 'Camera Operating');
-    } else { if (page === 'about') aboutPage.classList.add('visible'); if (page === 'contact') contactPage.classList.add('visible'); }
+    
+    // Standard Active Link Handling
+    navLinks.forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+
+    // Overlay Handling
+    aboutPage.classList.remove('visible');
+    contactPage.classList.remove('visible');
+    mainStage.classList.remove('hidden-by-overlay');
+
+    if (page === 'about') {
+      aboutPage.classList.add('visible');
+      mainStage.classList.add('hidden-by-overlay');
+    } else if (page === 'contact') {
+      contactPage.classList.add('visible');
+      mainStage.classList.add('hidden-by-overlay');
+    } else if (page === 'film') {
+      loadProjects(filmProjects, 'Film & Documentary');
+    } else if (page === 'operating') {
+      loadProjects(operatingProjects, 'Camera Operating');
+    }
   });
 });
-[aboutPage, contactPage].forEach(p => p.addEventListener('click', (e) => { if(e.target === p) p.classList.remove('visible'); }));
+
+[aboutPage, contactPage].forEach(p => p.addEventListener('click', (e) => { 
+  if(e.target === p) {
+    p.classList.remove('visible'); 
+    mainStage.classList.remove('hidden-by-overlay');
+    // Restore nav highlight to previous list page
+    navLinks.forEach(l => l.classList.remove('active'));
+    const categoryLink = currentCategoryData === filmProjects ? navLinks[0] : navLinks[1];
+    categoryLink.classList.add('active');
+  }
+}));
+
+// ── ABOUT VIDEO EXCLUSIVE PLAYBACK LOGIC ──
+const aboutVideos = [];
 
 function setupAboutVideo(containerId, videoId) {
   const container = document.getElementById(containerId);
   const video = document.getElementById(videoId);
   const overlay = container.querySelector('.video-play-overlay');
   const fsBtn = container.querySelector('.fullscreen-toggle');
-  container.addEventListener('mouseenter', () => { video.play().catch(() => {}); });
-  container.addEventListener('mouseleave', () => { if (video.muted) video.pause(); });
-  fsBtn.addEventListener('click', (e) => { e.stopPropagation(); if (video.requestFullscreen) video.requestFullscreen(); else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen(); });
+  
+  aboutVideos.push(video);
+
+  const stopOthers = () => {
+    aboutVideos.forEach(v => {
+      if (v !== video) {
+        v.pause();
+        v.muted = true;
+        const parent = v.closest('.about-video-wrap');
+        const ov = parent.querySelector('.video-play-overlay');
+        if (ov) ov.style.opacity = '1';
+      }
+    });
+  };
+
+  container.addEventListener('mouseenter', () => {
+    stopOthers();
+    video.play().catch(() => {});
+  });
+
+  container.addEventListener('mouseleave', () => {
+    if (video.muted) video.pause();
+  });
+
+  fsBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (video.requestFullscreen) video.requestFullscreen();
+    else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+  });
+
   video.addEventListener('fullscreenchange', () => { video.controls = !!document.fullscreenElement; });
-  container.addEventListener('click', () => { if (video.muted) { video.muted = false; video.currentTime = 0; video.play(); overlay.style.opacity = '0'; } else { video.muted = true; overlay.style.opacity = '1'; } });
+  
+  container.addEventListener('click', () => {
+    if (video.muted) {
+      stopOthers();
+      video.muted = false;
+      video.currentTime = 0;
+      video.play();
+      overlay.style.opacity = '0';
+    } else {
+      video.muted = true;
+      overlay.style.opacity = '1';
+    }
+  });
 }
+
 setupAboutVideo('containerReel', 'vidReel');
 setupAboutVideo('containerBTS', 'vidBTS');
 setupAboutVideo('containerRecreation', 'vidRecreation');
+
 loadProjects(filmProjects, 'Film & Documentary');
 </script>
 </body>
