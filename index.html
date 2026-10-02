@@ -263,33 +263,25 @@ main { position: relative; z-index: 1; }
 .player.is-playing .frame img, .player.is-playing .play { opacity: 0; pointer-events: none; }
 .play {
   position: absolute; inset: 0; z-index: 2;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  display: flex; align-items: flex-end; justify-content: flex-start;
+  padding: 0 0 20px 24px;
   color: var(--paper);
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.08) 72%);
-  transition: opacity 0.4s var(--ease), background 0.4s var(--ease);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 30%);
+  transition: opacity 0.4s var(--ease);
 }
-.play .ring {
-  display: grid; place-items: center;
-  width: 72px; height: 72px; border-radius: 50%;
-  border: 1px solid rgba(239, 237, 233, 0.55);
-  background: rgba(8, 8, 8, 0.22);
-  backdrop-filter: blur(10px) saturate(1.2); -webkit-backdrop-filter: blur(10px) saturate(1.2);
-  transition: transform 0.45s var(--ease), background 0.3s, border-color 0.3s, color 0.3s;
-}
-.play svg { width: 18px; height: 18px; margin-left: 3px; fill: currentColor; }
 .play .label {
+  display: inline-flex; align-items: center; gap: 10px;
   font-size: 14px; font-weight: 500; letter-spacing: 0.01em;
-  color: rgba(239, 237, 233, 0.9);
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+  padding-bottom: 4px; border-bottom: 1px solid rgba(239, 237, 233, 0);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
+  transition: border-color 0.3s;
 }
-.player .frame:hover .play { background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0) 72%); }
-.player .frame:hover .play .ring,
-.play:focus-visible .ring {
-  transform: scale(1.06);
-  background: var(--paper); border-color: var(--paper); color: #000;
-}
+.play svg { width: 9px; height: 10px; fill: currentColor; }
+.player .frame img { opacity: 0.9; }
+.player .frame:hover img { opacity: 1; }
+.player .frame:hover .play .label, .play:focus-visible .label { border-color: rgba(239, 237, 233, 0.75); }
 .play:focus-visible { outline: none; }
-.play:focus-visible .ring { outline: 1px solid var(--paper); outline-offset: 5px; }
+.play:focus-visible .label { outline: 1px solid var(--paper); outline-offset: 6px; }
 .player figcaption {
   display: flex; justify-content: space-between; gap: 24px; align-items: baseline;
   padding-top: 14px;
@@ -448,6 +440,7 @@ main { position: relative; z-index: 1; }
   .form-foot { flex-direction: column-reverse; align-items: stretch; }
   .send { width: 100%; }
   .foot { flex-direction: column; gap: 4px; margin-top: 80px; }
+  .play { padding: 0 0 12px 14px; }
 }
 
 /* ---------- Phones held sideways (and other short, wide windows) ----------
@@ -488,7 +481,6 @@ main { position: relative; z-index: 1; }
   .row .t { font-size: 16px; }
   .row .d, .row .y { font-size: 12px; }
   .page { padding-left: max(var(--gutter), env(safe-area-inset-left)); padding-right: max(var(--gutter), env(safe-area-inset-right)); }
-  .play .ring { width: 56px; height: 56px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1227,7 +1219,7 @@ main { position: relative; z-index: 1; }
     <figure class="player about-intro" data-slug="dp-reel">
       <div class="frame">
         <img src="media/dp-reel.webp" alt="" loading="lazy">
-        <button class="play" type="button"><span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg></span><span class="label">Play reel</span></button>
+        <button class="play" type="button"><span class="label"><svg viewBox="0 0 9 10" aria-hidden="true"><path d="M0 0v10l9-5z"/></svg>Play reel</span></button>
       </div>
       <figcaption><strong>Cinematography reel</strong><span>2:03</span></figcaption>
     </figure>
@@ -1256,14 +1248,14 @@ main { position: relative; z-index: 1; }
         <figure class="player" data-slug="craft-presentation">
           <div class="frame">
             <img src="media/craft-presentation.webp" alt="" loading="lazy">
-            <button class="play" type="button"><span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg></span><span class="label">Play</span></button>
+            <button class="play" type="button"><span class="label"><svg viewBox="0 0 9 10" aria-hidden="true"><path d="M0 0v10l9-5z"/></svg>Play</span></button>
           </div>
           <figcaption><strong>How it was made: 72 Hours on Gardraxis and A Prom for the Stars</strong><span>12:12</span></figcaption>
         </figure>
         <figure class="player" data-slug="away-we-go-recreation">
           <div class="frame">
             <img src="media/away-we-go-recreation.webp" alt="" loading="lazy">
-            <button class="play" type="button"><span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg></span><span class="label">Play</span></button>
+            <button class="play" type="button"><span class="label"><svg viewBox="0 0 9 10" aria-hidden="true"><path d="M0 0v10l9-5z"/></svg>Play</span></button>
           </div>
           <figcaption><strong>Away We Go shot recreation, 2024</strong><span>3:03</span></figcaption>
         </figure>
