@@ -11,7 +11,7 @@ media/            <slug>.av1.mp4, <slug>.hevc.mp4, <slug>.webp poster
 tools/            encode + palette scripts, local preview server
 ```
 
-Projects are listed in the `FILM` and `OPERATING` arrays near the top of the script in `index.html`. A project with a `slug` plays `media/<slug>.*`; a project with an `image` shows that still; a project with neither shows a "Footage coming soon" card.
+Projects are listed in the `FILM` and `OPERATING` arrays near the top of the script in `index.html`. After changing them, run `node tools/build_seo.js` to regenerate the structured data block in `index.html` and `sitemap.xml`. A project with a `slug` plays `media/<slug>.*`; a project with an `image` shows that still; a project with neither shows a "Footage coming soon" card.
 
 ## Video formats
 
@@ -51,3 +51,10 @@ Published site under 1 GB, files under 100 MB (50 MB warning), no Git LFS (Pages
 The inquiry form on the Contact page posts to [Web3Forms](https://web3forms.com) from the browser; there's no server. The access key is the `WEB3FORMS_KEY` constant in `index.html`. It is public by design and only allows sending to the inbox it was created with. To change the receiving inbox, create a new key at web3forms.com and replace the constant.
 
 Spam protection is a hidden `botcheck` honeypot. If spam gets through, enable hCaptcha in the Web3Forms dashboard and add their hCaptcha snippet to the form.
+
+## Search
+
+- `<title>`, description and Open Graph tags lead with "cinematographer" and "director of photography" plus Los Angeles and upstate New York, to separate Jack from other people named Jack Barry.
+- A JSON-LD block (generated, between the `seo:jsonld` comments) describes Jack as a Person with his Instagram, YouTube and IMDb profiles, and every project as a Movie or CreativeWork with its director, year and trailer.
+- `sitemap.xml` lists the page and every video; `robots.txt` points to it.
+- `media/og.jpg` is the 1200x630 share card.
