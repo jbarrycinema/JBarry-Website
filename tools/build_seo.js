@@ -76,7 +76,7 @@ const graph = {
       knowsAbout: ['Cinematography', 'Camera operating', 'Remote head operating', 'Lighting', '16mm film'],
       sameAs: [
         'https://www.instagram.com/jackb.dop/',
-        'https://www.youtube.com/@JackBarry-dop',
+        'https://www.youtube.com/@JackB-dop',
         'https://www.imdb.com/name/nm17324923/',
       ],
     },
