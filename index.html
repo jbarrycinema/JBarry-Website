@@ -1,517 +1,1046 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Jack Barry / Cinematographer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,200&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jack Barry, Cinematographer</title>
+<meta name="description" content="Jack Barry is a cinematographer based in Los Angeles and upstate New York, shooting narrative film, documentary and commercial work.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Jack Barry, Cinematographer">
+<meta property="og:description" content="Narrative, documentary and commercial cinematography.">
+<meta property="og:image" content="https://jackabarry.com/media/72-hours-on-gardraxis.webp">
+<meta property="og:url" content="https://jackabarry.com/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://jackabarry.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Crect x='6' y='10' width='20' height='12' fill='none' stroke='%23efede9' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://i.postimg.cc" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap">
+<link rel="preload" as="image" href="media/72-hours-on-gardraxis.webp" fetchpriority="high">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+@property --c1 { syntax: '<color>'; inherits: true; initial-value: #1c1c1c; }
+@property --c2 { syntax: '<color>'; inherits: true; initial-value: #141414; }
+@property --c3 { syntax: '<color>'; inherits: true; initial-value: #101010; }
 
-  :root {
-    --black: #080808;
-    --white: #f4f2ee;
-    --dim: rgba(244,242,238,0.45);
-    --dimmer: rgba(244,242,238,0.18);
-    --accent: #f4895a;
-    --line: rgba(244,242,238,0.10);
-    --nav-h: 52px;
-    --right-w: 30%; 
-    --transition: 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper: #efede9;
+  --mute: #9a9894;
+  --dim: #64625f;
+  --rule: rgba(239, 237, 233, 0.1);
+  --top: 68px;
+  --gutter: 40px;
+  --index-w: clamp(300px, 27vw, 420px);
+  --credits-h: 168px;
+  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+  color-scheme: dark;
+}
+
+html { background: #000; }
+body {
+  min-height: 100dvh;
+  background: #000;
+  color: var(--paper);
+  font-family: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+body.is-locked { overflow: hidden; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+img, video { display: block; }
+:focus-visible { outline: 1px solid var(--paper); outline-offset: 3px; }
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- Light spill from the footage ---------- */
+.ambient {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  transition: --c1 1.6s linear, --c2 1.6s linear, --c3 1.6s linear, opacity 1.2s var(--ease);
+}
+.ambient i {
+  position: absolute; border-radius: 50%;
+  will-change: transform;
+}
+.ambient .b1 {
+  width: 90vmax; height: 70vmax; left: -18vmax; top: -22vmax;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--c1) 56%, transparent), transparent);
+  animation: drift-a 26s ease-in-out infinite alternate;
+}
+.ambient .b2 {
+  width: 70vmax; height: 70vmax; right: -30vmax; top: 10vh;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--c2) 48%, transparent), transparent);
+  animation: drift-b 31s ease-in-out infinite alternate;
+}
+.ambient .b3 {
+  width: 80vmax; height: 50vmax; left: 10vw; bottom: -34vmax;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--c3) 38%, transparent), transparent);
+  animation: drift-c 23s ease-in-out infinite alternate;
+}
+@keyframes drift-a { to { transform: translate3d(8vmax, 6vmax, 0) scale(1.08); } }
+@keyframes drift-b { to { transform: translate3d(-10vmax, -4vmax, 0) scale(0.92); } }
+@keyframes drift-c { to { transform: translate3d(-6vmax, -5vmax, 0) scale(1.1); } }
+.ambient.is-low { opacity: 0.45; }
+
+/* ---------- Header ---------- */
+.top {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+  height: var(--top);
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 0 var(--gutter);
+  background: #000;
+}
+/* Soft edge where long pages scroll under the header; not needed on the work view. */
+.top::after {
+  content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 32px;
+  background: linear-gradient(#000, rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+body[data-view="work"] .top::after { display: none; }
+.mark {
+  display: flex; align-items: baseline; gap: 12px;
+  text-decoration: none; white-space: nowrap;
+}
+.mark b { font-weight: 600; font-size: 18px; font-stretch: 85%; letter-spacing: -0.01em; }
+.mark span { color: var(--mute); font-size: 14px; }
+.nav { display: flex; gap: 28px; font-size: 14px; }
+.nav a {
+  color: var(--mute); text-decoration: none; white-space: nowrap;
+  padding: 6px 0; border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav a:hover { color: var(--paper); }
+.nav a[aria-current="page"] { color: var(--paper); border-color: var(--paper); }
+.nav .short { display: none; }
+
+main { position: relative; z-index: 1; }
+.view[hidden] { display: none !important; }
+.view { animation: view-in 0.5s var(--ease); }
+@keyframes view-in { from { opacity: 0; } }
+
+/* ---------- Work view ---------- */
+.work {
+  position: fixed; inset: var(--top) 0 0 0;
+  display: grid; grid-template-columns: 1fr var(--index-w);
+}
+.screen-col {
+  min-width: 0;
+  display: flex; align-items: center;
+  padding: 12px var(--gutter) 28px;
+}
+.screen {
+  width: min(100%, calc((100dvh - var(--top) - 40px - var(--credits-h)) * 16 / 9));
+}
+.frame {
+  position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+  background: #050505;
+  box-shadow: 0 30px 120px -40px color-mix(in oklab, var(--c1) 60%, transparent);
+  transition: --c1 1.6s linear;
+}
+.slide {
+  position: absolute; inset: 0;
+  opacity: 0; transition: opacity 0.5s var(--ease);
+}
+.slide.is-active { opacity: 1; z-index: 2; }
+.slide.is-leaving { opacity: 1; z-index: 1; }
+.slide img, .slide video {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+}
+.slide img.logo { object-fit: contain; padding: 14% 30%; background: #000; }
+.slide video { opacity: 0; transition: opacity 0.45s var(--ease); }
+.slide video.is-on { opacity: 1; }
+.slide .soon {
+  position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: 6px;
+  color: var(--mute); font-size: 14px;
+  background: radial-gradient(ellipse at center, #121212, #050505 70%);
+}
+.slide .soon strong { color: var(--paper); font-size: clamp(22px, 2.4vw, 34px); font-weight: 500; font-stretch: 80%; letter-spacing: -0.01em; }
+
+.progress { height: 1px; background: var(--rule); overflow: hidden; }
+.progress span {
+  display: block; height: 100%; background: var(--paper); opacity: 0.55;
+  transform-origin: left; transform: scaleX(0);
+}
+
+.credits {
+  min-height: var(--credits-h);
+  display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 0 32px;
+  padding-top: 22px;
+  transition: opacity 0.18s ease;
+}
+.credits.is-swapping { opacity: 0; }
+.c-title {
+  font-size: clamp(30px, 2.9vw, 50px);
+  font-weight: 500; font-stretch: 78%;
+  letter-spacing: -0.02em; line-height: 1.02;
+  text-wrap: balance;
+}
+.c-facts { display: flex; flex-wrap: wrap; gap: 10px 36px; margin-top: 16px; }
+.c-facts dt { font-size: 12px; color: var(--dim); }
+.c-facts dd { font-size: 14px; color: var(--paper); }
+.c-side { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; padding-top: 6px; }
+.laurels { display: flex; gap: 14px; }
+.laurels img { height: 58px; width: auto; }
+.text-link {
+  font-size: 14px; text-decoration: none; white-space: nowrap;
+  border-bottom: 1px solid color-mix(in oklab, var(--paper) 40%, transparent);
+  padding-bottom: 2px; transition: border-color 0.2s;
+}
+.text-link:hover { border-color: var(--paper); }
+
+/* Title index */
+.index {
+  position: relative; min-height: 0;
+  border-left: 1px solid var(--rule);
+  overflow-y: auto; overscroll-behavior: contain;
+  scrollbar-width: thin; scrollbar-color: rgba(239, 237, 233, 0.16) transparent;
+  padding: 10px 0 40px;
+  transition: --c1 1.6s linear, --c2 1.6s linear, --c3 1.6s linear;
+}
+.index ul { list-style: none; }
+.row {
+  position: relative; isolation: isolate;
+  display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 2px 16px;
+  width: 100%; text-align: left;
+  padding: 13px 28px 14px;
+}
+.row::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(100deg,
+    color-mix(in oklab, var(--c1) 72%, transparent) 0%,
+    color-mix(in oklab, var(--c2) 58%, transparent) 30%,
+    color-mix(in oklab, var(--c3) 46%, transparent) 58%,
+    color-mix(in oklab, var(--c1) 28%, transparent) 80%,
+    transparent 100%);
+  background-size: 260% 100%;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+  animation: band 11s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.row::after {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: color-mix(in oklab, var(--c1), white 35%);
+  transform: scaleY(0); transition: transform 0.35s var(--ease);
+}
+.row.is-active::before { opacity: 0.85; animation-play-state: running; }
+.row.is-active::after { transform: scaleY(1); }
+@keyframes band {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+.row .t {
+  font-size: 19px; font-weight: 500; font-stretch: 86%; letter-spacing: -0.005em; line-height: 1.2;
+  color: var(--mute); transition: color 0.25s;
+}
+.row .y { font-size: 13px; color: var(--dim); font-variant-numeric: tabular-nums; transition: color 0.25s; }
+.row .d { grid-column: 1 / -1; font-size: 13px; color: var(--dim); transition: color 0.25s; }
+.row:hover .t, .row.is-active .t { color: var(--paper); }
+.row.is-active .y, .row.is-active .d { color: color-mix(in oklab, var(--paper) 78%, transparent); }
+
+/* ---------- Pages ---------- */
+.page {
+  max-width: 1240px; margin: 0 auto;
+  padding: calc(var(--top) + 40px) var(--gutter) 0;
+}
+.player { position: relative; }
+.player .frame { cursor: pointer; }
+.player .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s; }
+.player .frame video { position: absolute; inset: 0; width: 100%; height: 100%; background: #000; }
+.player.is-playing .frame img, .player.is-playing .play { opacity: 0; pointer-events: none; }
+.play {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2;
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 14px; color: var(--paper);
+  transition: opacity 0.3s;
+}
+.play::before {
+  content: ''; width: 46px; height: 46px; border-radius: 50%;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(239, 237, 233, 0.7);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: background 0.25s, border-color 0.25s;
+}
+.play::after {
+  content: ''; position: absolute; left: 19px; top: 50%; transform: translateY(-50%);
+  border-style: solid; border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent var(--paper);
+}
+.player .frame:hover .play::before { background: rgba(239, 237, 233, 0.16); border-color: var(--paper); }
+.player figcaption {
+  display: flex; justify-content: space-between; gap: 24px; align-items: baseline;
+  padding-top: 14px;
+}
+.player figcaption strong { font-weight: 500; font-size: 17px; font-stretch: 88%; }
+.player figcaption span { color: var(--mute); font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.about-intro { margin-bottom: 96px; }
+.bio {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 64px;
+  align-items: start; margin-bottom: 112px;
+}
+.bio figure img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #0a0a0a; }
+.bio h1 {
+  font-size: clamp(34px, 3.6vw, 56px); font-weight: 500; font-stretch: 78%;
+  letter-spacing: -0.02em; line-height: 1.02; margin-bottom: 28px;
+}
+.bio .copy { max-width: 60ch; }
+.bio .copy p { font-size: 17px; line-height: 1.68; color: color-mix(in oklab, var(--paper) 82%, transparent); }
+.bio .copy p + p { margin-top: 1.1em; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: 10px 32px; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--rule); font-size: 14px; }
+.facts dt { color: var(--dim); }
+.facts dd a { text-decoration: none; border-bottom: 1px solid color-mix(in oklab, var(--paper) 30%, transparent); }
+.facts dd a:hover { border-color: var(--paper); }
+.facts dd a + a { margin-left: 18px; }
+
+.process h2 {
+  font-size: 26px; font-weight: 500; font-stretch: 82%; letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+.process-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+.contact {
+  min-height: 100dvh; display: flex; flex-direction: column;
+  padding-top: calc(var(--top) + 72px);
+}
+.contact-grid {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 96px;
+  align-items: start;
+}
+.contact h1 { font-size: 17px; font-weight: 400; color: var(--mute); margin-bottom: 18px; }
+.contact .email {
+  display: inline-block;
+  font-size: clamp(32px, 3.6vw, 54px); font-weight: 500; font-stretch: 76%;
+  letter-spacing: -0.025em; line-height: 1;
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  transition: background-size 0.5s var(--ease);
+  padding-bottom: 6px;
+}
+.contact .email:hover { background-size: 100% 1px; }
+.contact .facts { margin-top: 48px; }
+
+/* Inquiry form (posts to Web3Forms) */
+.inquiry h2, .sent h2 {
+  font-size: 26px; font-weight: 500; font-stretch: 82%; letter-spacing: -0.01em;
+  margin-bottom: 32px;
+}
+.inquiry { display: grid; gap: 28px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.field { border: 0; min-width: 0; }
+.field > label, .field legend {
+  display: block; font-size: 13px; color: var(--mute); margin-bottom: 4px;
+}
+.field > label span, .field legend span { color: var(--dim); margin-left: 6px; }
+.field input:not([type="radio"]), .field textarea {
+  width: 100%; display: block;
+  font: inherit; font-size: 17px; color: var(--paper);
+  background: transparent; border: 0; border-radius: 0;
+  border-bottom: 1px solid rgba(239, 237, 233, 0.22);
+  padding: 8px 0 10px;
+  transition: border-color 0.25s, box-shadow 0.35s var(--ease);
+}
+.field textarea { resize: vertical; min-height: 128px; line-height: 1.55; }
+.field ::placeholder { color: var(--dim); opacity: 1; }
+.field input:not([type="radio"]):focus, .field textarea:focus {
+  outline: none;
+  border-bottom-color: color-mix(in oklab, var(--c1), white 45%);
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--c1), white 45%);
+}
+.field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--paper);
+  transition: background-color 600000s 0s;
+  caret-color: var(--paper);
+}
+.field.is-invalid input, .field.is-invalid textarea { border-bottom-color: #e3907f; }
+.field-error { font-size: 13px; color: #e3907f; margin-top: 6px; min-height: 0; }
+.field-error:empty { display: none; }
+
+.form-foot { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 4px; }
+.form-status { font-size: 14px; color: var(--mute); max-width: 44ch; }
+.form-status.is-error { color: #e3907f; }
+.send {
+  position: relative; overflow: hidden; flex-shrink: 0;
+  font-size: 15px; font-weight: 500; color: #000;
+  background: var(--paper); border-radius: 2px;
+  padding: 14px 26px;
+  transition: background 0.25s, opacity 0.25s;
+}
+.send:hover { background: #fff; }
+.send:disabled { cursor: progress; opacity: 0.75; }
+.send.is-busy::after {
+  content: ''; position: absolute; left: 0; bottom: 0; height: 2px; width: 40%;
+  background: color-mix(in oklab, var(--c1), black 10%);
+  animation: sending 1.1s ease-in-out infinite;
+}
+@keyframes sending { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+
+.sent { padding-top: 4px; }
+.sent h2:focus { outline: none; }
+.sent p { font-size: 17px; line-height: 1.6; color: color-mix(in oklab, var(--paper) 82%, transparent); max-width: 46ch; margin: -16px 0 28px; }
+
+.foot {
+  display: flex; justify-content: space-between; gap: 24px;
+  margin-top: 120px; padding: 24px 0 32px; border-top: 1px solid var(--rule);
+  font-size: 13px; color: var(--dim);
+}
+.contact .foot { margin-top: auto; padding-top: 24px; }
+.contact-grid { margin-bottom: 120px; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 900px) {
+  :root { --gutter: 16px; --top: 56px; }
+  .mark span { display: none; }
+  .nav { gap: 18px; }
+  .nav .long { display: none; }
+  .nav .short { display: inline; }
+  .work { position: static; display: block; padding-top: var(--top); }
+  .screen-col {
+    position: sticky; top: var(--top); z-index: 3;
+    display: block; padding: 0 0 2px; background: #000;
   }
-
-  html, body {
-    height: 100%;
-    background: var(--black);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    overflow: hidden;
+  .screen-col::after {
+    content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 28px;
+    background: linear-gradient(#000, rgba(0, 0, 0, 0)); pointer-events: none;
   }
+  .screen { width: 100%; }
+  .frame { box-shadow: none; }
+  .credits { min-height: 0; padding: 14px var(--gutter) 12px; gap: 8px 16px; }
+  .c-title { font-size: 24px; }
+  .c-facts { gap: 4px 20px; margin-top: 8px; }
+  .c-facts dt { display: none; }
+  .c-facts dd { font-size: 13px; color: var(--mute); }
+  .laurels img { height: 36px; }
+  .c-side { padding-top: 2px; }
+  .index { border-left: 0; border-top: 1px solid var(--rule); overflow: visible; padding-bottom: 64px; }
+  .row { padding: 14px var(--gutter); }
+  .page { padding-top: calc(var(--top) + 16px); }
+  .bio { grid-template-columns: 1fr; gap: 32px; margin-bottom: 72px; }
+  .about-intro { margin-bottom: 56px; }
+  .process-grid { grid-template-columns: 1fr; gap: 40px; }
+  .contact { padding-top: calc(var(--top) + 32px); }
+  .contact-grid { grid-template-columns: 1fr; gap: 64px; margin-bottom: 80px; }
+  .field-row { grid-template-columns: 1fr; }
+  .form-foot { flex-direction: column-reverse; align-items: stretch; }
+  .send { width: 100%; }
+  .foot { flex-direction: column; gap: 4px; margin-top: 80px; }
+}
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    height: var(--nav-h);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 28px;
-    z-index: 100;
-    border-bottom: 1px solid var(--line);
-    background: rgba(8,8,8,0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-  }
-
-  .nav-brand {
-    font-size: 16px; 
-    font-weight: 400;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--white);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  .nav-brand span { color: var(--dim); font-weight: 300; }
-
-  .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a { font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color 0.2s; cursor: pointer; }
-  .nav-links a:hover, .nav-links a.active { color: var(--white); }
-
-  /* ── LAYOUT ── */
-  .stage {
-    position: fixed;
-    top: var(--nav-h); left: 0; right: 0; bottom: 0;
-    display: grid;
-    grid-template-columns: calc(100% - var(--right-w)) var(--right-w);
-    transition: opacity 0.4s ease;
-  }
-  .stage.hidden-by-overlay {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .media-panel {
-    position: relative;
-    overflow: hidden;
-    background: #000;
-  }
-
-  .video-wrap { position: absolute; inset: 0; }
-  .video-wrap video, .video-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity var(--transition); pointer-events: none; }
-  .video-wrap .active { opacity: 1; }
-
-  .vignette {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 30% 50%, transparent 40%, rgba(8,8,8,0.55) 100%),
-      linear-gradient(to right, rgba(8,8,8,0.25) 0%, transparent 60%),
-      linear-gradient(to top, rgba(8,8,8,0.85) 0%, transparent 45%);
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  /* ── OVERLAY META ── */
-  .overlay-meta { position: absolute; bottom: 36px; left: 32px; z-index: 4; max-width: 900px; }
-  .title-row { display: flex; align-items: center; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
-  .meta-laurels { display: flex; gap: 12px; align-items: center; transition: opacity 0.3s; }
-  .meta-laurels img { height: 62px; width: auto; filter: brightness(0.95); }
-  .meta-title { font-family: 'DM Serif Display', serif; font-size: clamp(36px, 5vw, 68px); font-weight: 400; line-height: 0.95; letter-spacing: -0.01em; color: var(--white); transition: opacity var(--transition), transform var(--transition); }
-  .meta-swap { transition: opacity 0.25s, transform 0.3s; }
-  .meta-swap.fade-out { opacity: 0; transform: translateY(6px); }
-  .meta-tag { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
-  .meta-tag::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-  .meta-details { display: flex; align-items: center; gap: 0; font-size: 11px; font-weight: 300; letter-spacing: 0.10em; text-transform: uppercase; color: var(--dim); margin-bottom: 24px; flex-wrap: wrap; transition: opacity var(--transition); }
-  .meta-details .sep { margin: 0 12px; opacity: 0.35; }
-  .btn-view { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; border: 1px solid rgba(244,242,238,0.3); background: transparent; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.25s, border-color 0.25s, color 0.25s; text-decoration: none; }
-  .btn-view:hover { background: var(--white); color: var(--black); }
-
-  /* ── RIGHT PANEL ── */
-  .list-panel { 
-    display: flex; flex-direction: column; border-left: 1px solid var(--line); overflow: hidden; 
-    background: rgba(8, 8, 8, 0.15); 
-    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  }
-  .list-header { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 44px; border-bottom: 1px solid var(--line); }
-  .list-header-left { font-size: 10px; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dim); }
-  .list-header-right { font-size: 10px; font-weight: 300; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dimmer); }
-  .list-scroll { flex: 1; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: rgba(244,242,238,0.12) transparent; }
-  .project-item { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 0 14px; padding: 0 24px; height: 58px; border-bottom: 1px solid var(--line); cursor: pointer; position: relative; transition: background 0.4s; text-decoration: none; color: inherit; overflow: hidden; }
-  .project-item::before {
-    content: ''; position: absolute; inset: -20px;
-    background: linear-gradient(115deg, transparent 10%, rgba(244, 137, 90, 0.15) 25%, rgba(90, 180, 244, 0.12) 45%, rgba(244, 210, 90, 0.10) 65%, rgba(90, 244, 215, 0.08) 85%, transparent 100%);
-    background-size: 250% 250%; filter: blur(12px); opacity: 0; transition: opacity 0.6s ease; z-index: 0; mix-blend-mode: screen;
-  }
-  .project-item:hover::before, .project-item.active::before { opacity: 1; animation: flowCinemaGradient 8s infinite alternate ease-in-out; }
-  @keyframes flowCinemaGradient { 0% { background-position: 0% 0%; transform: scale(1); } 50% { background-position: 100% 100%; transform: scale(1.1); } 100% { background-position: 50% 0%; transform: scale(1); } }
-  .project-item::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); opacity: 0; transition: opacity 0.3s; }
-  .project-item:hover, .project-item.active { background: rgba(255,255,255,0.03); }
-  .project-item:hover::after, .project-item.active::after { opacity: 1; }
-  .item-num, .item-title, .item-meta { position: relative; z-index: 1; }
-  .item-num { font-size: 10px; font-weight: 300; letter-spacing: 0.08em; color: var(--dimmer); text-align: right; }
-  .item-title { font-size: 14px; font-weight: 300; letter-spacing: 0.01em; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.3s; }
-  .project-item:hover .item-title, .project-item.active .item-title { color: var(--white); font-weight: 400; }
-  .item-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
-  .item-type { font-size: 9px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dimmer); }
-  .item-year { font-size: 10px; font-weight: 300; letter-spacing: 0.08em; color: var(--dimmer); }
-
-  /* ── OVERLAYS ── */
-  .page-overlay { position: fixed; inset: 0; top: var(--nav-h); background: var(--black); z-index: 80; overflow-y: auto; opacity: 0; pointer-events: none; transform: translateY(18px); transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1); padding-bottom: 48px; }
-  .page-overlay.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
-  .page-inner { max-width: 1100px; margin: 0 auto; padding: 64px 48px 48px; }
-  .bio-grid { display: grid; grid-template-columns: 420px 1fr; gap: 48px; align-items: stretch; margin-bottom: 64px; }
-  .img-placeholder { width: 100%; height: 100%; background: rgba(244,242,238,0.04); border: 1px dashed rgba(244,242,238,0.12); overflow: hidden; }
-  .img-placeholder img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .bio-content-col { display: flex; flex-direction: column; gap: 24px; }
-  .bio-text .bio-body { font-size: 15px; font-weight: 300; line-height: 1.8; color: var(--dim); border: 1px dashed rgba(244,242,238,0.10); padding: 32px; background: rgba(244,242,238,0.02); flex-grow: 1; }
-  .links-container { border: 1px dashed rgba(244,242,238,0.10); padding: 24px 32px; background: rgba(244,242,238,0.015); }
-  .links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
-  .link-placeholder { display: flex; align-items: center; justify-content: center; padding: 12px; border: 1px solid rgba(244,242,238,0.12); background: rgba(244,242,238,0.02); transition: background 0.2s; height: 50px; }
-  .link-placeholder img { max-height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.5; }
-
-  /* ── ABOUT VIDEOS ── */
-  .about-video-section { margin-top: 48px; position: relative; }
-  .about-video-wrap { width: 100%; aspect-ratio: 16/9; background: #000; border: 1px solid var(--line); position: relative; cursor: pointer; overflow: hidden; margin-bottom: 12px; }
-  .about-video-wrap video { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: opacity 0.4s ease; }
-  .about-video-wrap:hover video { opacity: 1; }
-  .video-play-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(8,8,8,0.25); transition: opacity 0.3s; pointer-events: none; }
-  .about-video-wrap:hover .video-play-overlay { opacity: 0; }
-  .play-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); border: 1px solid var(--white); padding: 8px 16px; pointer-events: none; backdrop-filter: blur(4px); }
-  .fullscreen-toggle { position: absolute; top: 16px; right: 16px; z-index: 10; width: 32px; height: 32px; background: rgba(8,8,8,0.5); border: 1px solid rgba(244,242,238,0.2); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s, background 0.2s; cursor: pointer; backdrop-filter: blur(8px); }
-  .about-video-wrap:hover .fullscreen-toggle { opacity: 1; }
-  .fullscreen-toggle:hover { background: var(--white); }
-  .fullscreen-toggle svg { width: 14px; height: 14px; color: var(--white); transition: color 0.2s; }
-  .fullscreen-toggle:hover svg { color: var(--black); }
-
-  @media (max-width: 900px) {
-    :root { --right-w: 100%; }
-    .stage { grid-template-columns: 1fr; grid-template-rows: 50vh 50vh; }
-    .media-panel { grid-row: 1; }
-    .list-panel { grid-row: 2; border-left: none; border-top: 1px solid var(--line); background: var(--black); }
-    .bio-grid { grid-template-columns: 1fr; }
-    .img-placeholder { aspect-ratio: 4/5; height: auto; }
-  }
+@media (prefers-reduced-motion: reduce) {
+  .ambient i, .row::before { animation: none !important; }
+  .view { animation: none; }
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="#" class="nav-brand">Jack Barry <span>/ Cinematographer</span></a>
-  <ul class="nav-links">
-    <li><a data-page="film" class="active">Film and Documentary</a></li>
-    <li><a data-page="operating">Operating</a></li>
-    <li><a data-page="about">About</a></li>
-    <li><a data-page="contact">Contact</a></li>
-  </ul>
-</nav>
+<div class="ambient" id="ambient" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
 
-<div class="stage" id="mainStage">
-  <div class="media-panel">
-    <div class="video-wrap" id="videoWrap"></div>
-    <div class="vignette"></div>
-    <div class="overlay-meta">
-      <div class="meta-tag" id="metaTag">Selected — Film</div>
-      <div class="title-row">
-        <div class="meta-title meta-swap" id="metaTitle">Loading...</div>
-        <div id="metaLaurels" class="meta-laurels meta-swap"></div>
-      </div>
-      <div class="meta-details meta-swap" id="metaDetails">
-        <span id="metaYear">0000</span>
-        <span class="sep">/</span>
-        <span id="metaDirector">Dir. Name</span>
-        <span class="sep">/</span>
-        <span id="metaTags">Tags</span>
-      </div>
-      <a href="#" target="_blank" class="btn-view" id="btnView">
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polygon points="0,0 10,5 0,10" fill="currentColor"/></svg>
-        View Project
-      </a>
-    </div>
-  </div>
+<header class="top">
+  <a class="mark" href="#film"><b>Jack Barry</b><span>Cinematographer</span></a>
+  <nav class="nav" aria-label="Main">
+    <a href="#film"><span class="long">Film &amp; Documentary</span><span class="short">Film</span></a>
+    <a href="#operating">Operating</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-  <div class="list-panel">
-    <div class="list-header">
-      <span class="list-header-left" id="listTitle">Film & Documentary</span>
-      <span class="list-header-right" id="reelCount">00 · Reel '26</span>
-    </div>
-    <div class="list-scroll" id="projectList"></div>
-  </div>
-</div>
-
-<div class="footer-bar">
-  <span>2026 · Selected Works</span>
-  <span>Jack Barry · Cinematography</span>
-</div>
-
-<!-- ABOUT PAGE -->
-<div class="page-overlay" id="aboutPage">
-  <div class="page-inner">
-    <div class="page-heading">About</div>
-    <div class="bio-grid">
-      <div class="img-placeholder"><img src="https://i.postimg.cc/qR1VPBw2/jack-onset-lenses.jpg" alt="Jack Barry On Set"></div>
-      <div class="bio-content-col">
-        <div class="bio-text">
-          <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dimmer); margin-bottom: 12px;">Biography</div>
-          <div class="bio-body">
-            Jack Barry is a cinematographer based in Los Angeles, CA, and Upstate New York. Jack's enthusiasm, creativity, and technical ability allow for his images and visual storytelling to surpass any constraint of genre, story, and spectacle. His ability to realize emotion on screen through operating has allowed him opportunities to capture and tell stories with clients like Coca-Cola, Fox Sports, and others. With keen sensibility for simple, bold, situational approaches to lighting and framing, Jack has enhanced stories for narrative film production, commercials, and award-winning documentaries with no limitation on scope or budget. Jack’s determination to push new technology, paired with his appreciation for historic and analog methods of filmmaking, has shaped timely, original stories with his unique voice that inspires excitement for the future of cinematography.
+<main>
+  <!-- Work: film and operating share one screening layout -->
+  <section class="view work" id="work" aria-label="Selected work">
+    <div class="screen-col">
+      <div class="screen">
+        <div class="frame" id="frame"></div>
+        <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+        <div class="credits" id="credits" aria-live="polite">
+          <div>
+            <h2 class="c-title" id="cTitle"></h2>
+            <dl class="c-facts" id="cFacts"></dl>
           </div>
-        </div>
-        <div class="links-container">
-          <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--dimmer);">Digital Presence</div>
-          <div class="links-grid">
-            <a href="https://www.instagram.com/jackb.dop/" target="_blank" class="link-placeholder"><img src="https://i.postimg.cc/kGwQNznP/instagram-logo1.webp" alt="Instagram"></a>
-            <a href="https://www.youtube.com/@JackBarry-dop" target="_blank" class="link-placeholder"><img src="https://i.postimg.cc/7Lvx9LtH/youtube-logo.png" alt="YouTube"></a>
-            <a href="https://www.imdb.com/name/nm17324923/?ref_=fn_t_10" target="_blank" class="link-placeholder"><img src="https://i.postimg.cc/PJKWb9t5/IMDb-Emblem.png" alt="IMDb"></a>
+          <div class="c-side">
+            <div class="laurels" id="cLaurels"></div>
+            <a class="text-link" id="cLink" target="_blank" rel="noopener" hidden>View project</a>
           </div>
         </div>
       </div>
     </div>
+    <nav class="index" id="index" aria-label="Projects"><ul id="list"></ul></nav>
+  </section>
 
-    <!-- VIDEOS -->
-    <div class="about-video-section">
-      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>Featured Reel</div>
-      <div class="about-video-wrap" id="containerReel">
-        <button class="fullscreen-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
-        <video id="vidReel" loop playsinline muted><source src="https://trailers.jackabarry.com/Fixed%20for%20R2/DP%20Reel%20for%20Website.mp4" type="video/mp4"></video>
-        <div class="video-play-overlay"><div class="play-label">Click for Sound</div></div>
+  <!-- About -->
+  <section class="view page about" id="about" hidden>
+    <figure class="player about-intro" data-slug="dp-reel">
+      <div class="frame">
+        <img src="media/dp-reel.webp" alt="" loading="lazy">
+        <button class="play" type="button">Play reel with sound</button>
+      </div>
+      <figcaption><strong>Cinematography reel</strong><span>2:03</span></figcaption>
+    </figure>
+
+    <div class="bio">
+      <figure><img src="https://i.postimg.cc/qR1VPBw2/jack-onset-lenses.jpg" alt="Jack Barry on set, holding a cine lens" loading="lazy"></figure>
+      <div>
+        <h1>Jack Barry is a cinematographer based in Los Angeles and upstate New York.</h1>
+        <div class="copy">
+          <p>Jack's enthusiasm, creativity, and technical ability allow for his images and visual storytelling to surpass any constraint of genre, story, and spectacle. His ability to realize emotion on screen through operating has allowed him opportunities to capture and tell stories with clients like Coca-Cola, Fox Sports, and others.</p>
+          <p>With keen sensibility for simple, bold, situational approaches to lighting and framing, Jack has enhanced stories for narrative film production, commercials, and award-winning documentaries with no limitation on scope or budget.</p>
+          <p>Jack's determination to push new technology, paired with his appreciation for historic and analog methods of filmmaking, has shaped timely, original stories with his unique voice that inspires excitement for the future of cinematography.</p>
+        </div>
+        <dl class="facts">
+          <dt>Clients</dt><dd>Coca-Cola, Fox Sports, NYRA</dd>
+          <dt>Elsewhere</dt>
+          <dd><a href="https://www.instagram.com/jackb.dop/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/@JackBarry-dop" target="_blank" rel="noopener">YouTube</a><a href="https://www.imdb.com/name/nm17324923/" target="_blank" rel="noopener">IMDb</a></dd>
+          <dt>Contact</dt><dd><a href="mailto:contact@jackabarry.com">contact@jackabarry.com</a></dd>
+        </dl>
       </div>
     </div>
-    <div class="about-video-section">
-      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>How it Was Made - 72 Hours on Gardraxis and A Prom for the Stars</div>
-      <div class="about-video-wrap" id="containerBTS">
-        <button class="fullscreen-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
-        <video id="vidBTS" loop playsinline muted><source src="https://trailers.jackabarry.com/Fixed%20for%20R2/Craft%20Presentation%20for%20Site.mp4" type="video/mp4"></video>
-        <div class="video-play-overlay"><div class="play-label">Click for Sound</div></div>
+
+    <section class="process" aria-labelledby="processHead">
+      <h2 id="processHead">Process</h2>
+      <div class="process-grid">
+        <figure class="player" data-slug="craft-presentation">
+          <div class="frame">
+            <img src="media/craft-presentation.webp" alt="" loading="lazy">
+            <button class="play" type="button">Play</button>
+          </div>
+          <figcaption><strong>How it was made: 72 Hours on Gardraxis and A Prom for the Stars</strong><span>12:12</span></figcaption>
+        </figure>
+        <figure class="player" data-slug="away-we-go-recreation">
+          <div class="frame">
+            <img src="media/away-we-go-recreation.webp" alt="" loading="lazy">
+            <button class="play" type="button">Play</button>
+          </div>
+          <figcaption><strong>Away We Go shot recreation, 2024</strong><span>3:03</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <footer class="foot"><span>&copy; 2026 Jack Barry</span><span>Los Angeles, CA and upstate New York</span></footer>
+  </section>
+
+  <!-- Contact -->
+  <section class="view page contact" id="contact" hidden>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h1>For bookings and availability</h1>
+        <a class="email" href="mailto:contact@jackabarry.com">contact@jackabarry.com</a>
+        <dl class="facts">
+          <dt>Phone</dt><dd><a href="tel:+15185386567">(518) 538-6567</a></dd>
+          <dt>Based in</dt><dd>Los Angeles, CA and upstate New York</dd>
+          <dt>Elsewhere</dt>
+          <dd><a href="https://www.instagram.com/jackb.dop/" target="_blank" rel="noopener">Instagram</a><a href="https://www.youtube.com/@JackBarry-dop" target="_blank" rel="noopener">YouTube</a><a href="https://www.imdb.com/name/nm17324923/" target="_blank" rel="noopener">IMDb</a></dd>
+        </dl>
+      </div>
+
+      <div class="inquiry-wrap">
+        <form class="inquiry" id="inquiry" novalidate>
+          <h2>Tell me about your project</h2>
+          <input class="hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="field-row">
+            <div class="field">
+              <label for="fName">Name</label>
+              <input id="fName" name="name" autocomplete="name" required aria-describedby="fNameErr">
+              <p class="field-error" id="fNameErr"></p>
+            </div>
+            <div class="field">
+              <label for="fEmail">Email</label>
+              <input id="fEmail" name="email" type="email" autocomplete="email" required aria-describedby="fEmailErr">
+              <p class="field-error" id="fEmailErr"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="fSubject">Subject</label>
+            <input id="fSubject" name="subject" required aria-describedby="fSubjectErr">
+            <p class="field-error" id="fSubjectErr"></p>
+          </div>
+          <div class="field">
+            <label for="fMessage">Message</label>
+            <textarea id="fMessage" name="message" rows="6" required aria-describedby="fMessageErr"></textarea>
+            <p class="field-error" id="fMessageErr"></p>
+          </div>
+          <div class="form-foot">
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+            <button class="send" type="submit"><span>Send message</span></button>
+          </div>
+        </form>
+
+        <div class="sent" id="sent" hidden>
+          <h2 tabindex="-1">Message sent</h2>
+          <p id="sentNote"></p>
+          <button class="text-link" type="button" id="sendAnother">Send another message</button>
+        </div>
       </div>
     </div>
-    <div class="about-video-section">
-      <div class="field-label" style="font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; background: var(--accent); border-radius: 50%;"></span>"Away We Go" Shot Recreation 2024</div>
-      <div class="about-video-wrap" id="containerRecreation">
-        <button class="fullscreen-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
-        <video id="vidRecreation" loop playsinline muted><source src="https://trailers.jackabarry.com/Fixed%20for%20R2/Jack%2BParkShotRecreation.mp4" type="video/mp4"></video>
-        <div class="video-play-overlay"><div class="play-label">Click for Sound</div></div>
-      </div>
-    </div>
-  </div>
-</div>
+    <footer class="foot"><span>&copy; 2026 Jack Barry</span><span>Cinematographer</span></footer>
+  </section>
+</main>
 
-<!-- CONTACT PAGE -->
-<div class="page-overlay" id="contactPage">
-  <div class="page-inner">
-    <div class="page-label">Contact</div>
-    <div class="bio-text"><div class="bio-body">Email: contact@jackabarry.com <br> Phone: (518) 538-6567 <br> Los Angeles, CA - Upstate, NY</div></div>
-  </div>
-</div>
-
+<script src="palettes.js"></script>
 <script>
-const DEMO = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
-const filmProjects = [
-  { title: '72 Hours on Gardraxis', year: '2026', director: 'Dir. Benjamin Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/72%20Hours%20on%20Gardraxis%20Trailer.mp4', link: '' },
-  { title: 'A Prom for the Stars', year: '2026', director: 'Dir. Lucas Sherron', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/A%20Prom%20for%20the%20Stars%20Trailer.mp4', link: '' },
-  { title: 'Seven Minutes', year: '2025', director: 'Dir. Benjamin Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/Seven%20Minutes%20Trailer.mp4', link: '' },
-  { title: 'A Pound of Flesh', year: '2025', director: 'Dir. Benjamin Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/A%20Pound%20of%20Flesh%20Trailer.mp4', link: '' },
-  { title: 'HiHKAL', year: '2024', director: 'Dir. Deegan Melchiondo', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/HiHKAL%20Trailer.mp4', link: '' },
-  { title: 'ROC The Eclipse', year: '2024', director: 'Dir. Lucas Sherron', tags: 'Short · Documentary', type: 'DOCU', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/ROC%20Eclipse%20Trailer.mp4', laurels: ['https://i.postimg.cc/YCJx5dpv/Riff-Best-of-Fest-Laurel.png', 'https://i.postimg.cc/9Q4pg6jc/Official-Selection-RIFFtransparent.png'], link: '' },
-  { title: 'Stallard', year: '2023', director: 'Dir. Lucas Sherron', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/Stallard%20Trailer.mp4', link: '' },
-  { title: 'Submerged Signal', year: '2024', director: 'Dir. Various', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/submerged%20signal%20trailer.mp4', link: '' },
-  { title: 'The Watch', year: '2023', director: 'Dir. Benjamin Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/The%20Watch%20Trailer.mp4', link: '' },
-  { title: 'Judgement Call', year: '2023', director: 'Dir. Lucas Sherron', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/Judgement%20Call%20Trailer.mp4', link: '' },
-  { title: 'Still Hear', year: '2023', director: 'Dir. Lucas Sherron', tags: 'Short · Documentary', type: 'DOCU', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/Still%20Hear%20Trailer.mp4', link: '' },
-  { title: 'What Now?', year: '2023', director: 'Dir. Parker Long', tags: 'Short · Experimental', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/What%20Now%20Trailer.mp4', link: '' },
-  { title: 'Ouroboros', year: '2023', director: 'Dir. Ben Cragle', tags: 'Short · Narrative', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/Ouroboros%20Trailer.mp4', link: '' },
-  { title: 'Wither', year: '2023', director: 'Dir. Ria Coleman', tags: 'Experimental · Installation', type: 'FILM', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/Wither%20Trailer.mp4', link: '' }
-];
-const operatingProjects = [
-  { title: "Coca-Cola Refreshing Films: How's the View", year: '2024', director: 'Dir. Louisa Duchin', tags: 'Commercial · Remote Head Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/SKy7Dj12/Screenshot-2026-05-26-at-2-33-19-PM.png', link: 'https://www.coca-cola.com/us/en/offerings/refreshing-films/the-vault', pos: '25% center' },
-  { title: 'Northeast', year: '2025', director: 'Dir. Gilbert McCauley', tags: 'Short · A-Cam', type: 'OPER', videoUrl: 'https://i.postimg.cc/Bv1WqSfr/Coming-Soon.jpg', pos: '25% center', link: '' },
-  { title: 'Whiskey Distillery', year: '2025', director: 'Dir. Various', tags: 'Commercial · Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/Bv1WqSfr/Coming-Soon.jpg', pos: '25% center', link: '' },
-  { title: 'Fox Sports Live Broadcast: Saratoga Horse Racing', year: '2023', director: 'Dir. Various', tags: 'Live Broadcast · Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/sXPthML5/Fox-Sports.png', link: 'https://www.foxsports.com/horse-racing/videos', pos: '35% center' },
-  { title: 'NYRA Broadcast and Simulcast', year: '2023', director: 'Dir. Various', tags: 'Live Broadcast · Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/dtCxfHvn/NYRA-Logo.png', link: 'https://www.youtube.com/@thenyra', pos: '25% center' },
-  { title: 'The Chickening', year: '2025', director: 'Dir. Jacob French', tags: 'Short · 16mm', type: 'OPER', videoUrl: 'https://i.postimg.cc/SszPpDCq/Screenshot-2026-05-26-at-3-13-13-PM.png', link: 'https://www.imdb.com/title/tt34272041/?ref_=ext_shr_lnk' },
-  { title: 'Methane Truck', year: '2024', director: 'Dir. Jahaad Shairi', tags: 'Music Video · Remote Head Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/YqmQfTkG/JBWFB-Methane-Cover.jpg', link: 'https://www.youtube.com/@jbwfb', pos: '25% center' },
-  { title: '10 Minutes', year: '2025', director: 'Dir. Andrew Schlegel', tags: 'Short · Remote Head Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/T1T7zG93/10minutespic.jpg', link: 'https://www.instagram.com/10minutes.film?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', pos: '25% center' },
-  { title: 'Creatures of Habit', year: '2023', director: 'Dir. Andrew Alvarez', tags: 'Feature · Operator', type: 'OPER', videoUrl: 'https://i.postimg.cc/mZcyrPPw/COH-logo.jpg', link: 'https://vimeo.com/897302712?share=copy', pos: '25% center' },
-  { title: 'The Eternal Flame', year: '2024', director: 'Dir. Jack Barry', tags: 'Short · Remote Head Operator', type: 'OPER', videoUrl: 'https://trailers.jackabarry.com/Fixed%20for%20R2/Eternal%20Flame%20Trailer.mp4', link: '' },
+(() => {
+'use strict';
+
+// Encoded with SVT-AV1 (10-bit) and x265; see README for the pipeline.
+const MEDIA = 'media/';
+
+const FILM = [
+  { title: '72 Hours on Gardraxis', year: 2026, director: 'Benjamin Cragle', format: 'Short, narrative', slug: '72-hours-on-gardraxis' },
+  { title: 'A Prom for the Stars', year: 2026, director: 'Lucas Sherron', format: 'Short, narrative', slug: 'a-prom-for-the-stars' },
+  { title: 'Seven Minutes', year: 2025, director: 'Benjamin Cragle', format: 'Short, narrative', slug: 'seven-minutes' },
+  { title: 'A Pound of Flesh', year: 2025, director: 'Benjamin Cragle', format: 'Short, narrative', slug: 'a-pound-of-flesh' },
+  { title: 'HiHKAL', year: 2024, director: 'Deegan Melchiondo', format: 'Short, narrative', slug: 'hihkal' },
+  { title: 'ROC The Eclipse', year: 2024, director: 'Lucas Sherron', format: 'Short, documentary', slug: 'roc-the-eclipse',
+    laurels: [
+      { src: 'https://i.postimg.cc/YCJx5dpv/Riff-Best-of-Fest-Laurel.png', alt: 'Rochester International Film Festival, Best of Fest' },
+      { src: 'https://i.postimg.cc/9Q4pg6jc/Official-Selection-RIFFtransparent.png', alt: 'Rochester International Film Festival, Official Selection' } ] },
+  { title: 'Stallard', year: 2023, director: 'Lucas Sherron', format: 'Short, narrative', slug: 'stallard' },
+  { title: 'Submerged Signal', year: 2024, director: 'Various', format: 'Short, narrative', slug: 'submerged-signal' },
+  { title: 'The Watch', year: 2023, director: 'Benjamin Cragle', format: 'Short, narrative', slug: 'the-watch' },
+  { title: 'Judgement Call', year: 2023, director: 'Lucas Sherron', format: 'Short, narrative', slug: 'judgement-call' },
+  { title: 'Still Hear', year: 2023, director: 'Lucas Sherron', format: 'Short, documentary', slug: 'still-hear' },
+  { title: 'What Now?', year: 2023, director: 'Parker Long', format: 'Short, experimental', slug: 'what-now' },
+  { title: 'Ouroboros', year: 2023, director: 'Benjamin Cragle', format: 'Short, narrative', slug: 'ouroboros' },
+  { title: 'Wither', year: 2023, director: 'Ria Coleman', format: 'Experimental installation', slug: 'wither' },
 ];
 
-let currentCategoryData = filmProjects;
-let videoEls = [];
-let currentIndex = 0;
-let swapTimer = null;
+const OPERATING = [
+  { title: "Coca-Cola Refreshing Films: How's the View", year: 2024, director: 'Louisa Duchin', format: 'Commercial', role: 'Remote head operator',
+    image: 'https://i.postimg.cc/SKy7Dj12/Screenshot-2026-05-26-at-2-33-19-PM.png', link: 'https://www.coca-cola.com/us/en/offerings/refreshing-films/the-vault' },
+  { title: 'Northeast', year: 2025, director: 'Gilbert McCauley', format: 'Short', role: 'A camera operator' },
+  { title: 'Whiskey Distillery', year: 2025, director: 'Various', format: 'Commercial', role: 'Camera operator' },
+  { title: 'Fox Sports: Saratoga horse racing', year: 2023, director: 'Various', format: 'Live broadcast', role: 'Camera operator',
+    image: 'https://i.postimg.cc/sXPthML5/Fox-Sports.png', logo: true, link: 'https://www.foxsports.com/horse-racing/videos' },
+  { title: 'NYRA broadcast and simulcast', year: 2023, director: 'Various', format: 'Live broadcast', role: 'Camera operator',
+    image: 'https://i.postimg.cc/dtCxfHvn/NYRA-Logo.png', logo: true, link: 'https://www.youtube.com/@thenyra' },
+  { title: 'The Chickening', year: 2025, director: 'Jacob French', format: 'Short, 16mm', role: 'Camera operator',
+    image: 'https://i.postimg.cc/SszPpDCq/Screenshot-2026-05-26-at-3-13-13-PM.png', link: 'https://www.imdb.com/title/tt34272041/' },
+  { title: 'Methane Truck', year: 2024, director: 'Jahaad Shairi', format: 'Music video', role: 'Remote head operator',
+    image: 'https://i.postimg.cc/YqmQfTkG/JBWFB-Methane-Cover.jpg', link: 'https://www.youtube.com/@jbwfb' },
+  { title: '10 Minutes', year: 2025, director: 'Andrew Schlegel', format: 'Short', role: 'Remote head operator',
+    image: 'https://i.postimg.cc/T1T7zG93/10minutespic.jpg', link: 'https://www.instagram.com/10minutes.film' },
+  { title: 'Creatures of Habit', year: 2023, director: 'Andrew Alvarez', format: 'Feature', role: 'Camera operator',
+    image: 'https://i.postimg.cc/mZcyrPPw/COH-logo.jpg', link: 'https://vimeo.com/897302712' },
+  { title: 'The Eternal Flame', year: 2024, director: 'Jack Barry', format: 'Short', role: 'Remote head operator', slug: 'the-eternal-flame' },
+];
 
-const videoWrap = document.getElementById('videoWrap');
-const projectList = document.getElementById('projectList');
-const mainStage = document.getElementById('mainStage');
-const listTitle = document.getElementById('listTitle');
-const reelCount = document.getElementById('reelCount');
-const metaTitle = document.getElementById('metaTitle');
-const metaLaurels = document.getElementById('metaLaurels');
-const metaYear = document.getElementById('metaYear');
-const metaDir = document.getElementById('metaDirector');
-const metaTags = document.getElementById('metaTags');
-const metaTag = document.getElementById('metaTag');
-const btnView = document.getElementById('btnView');
+const CATEGORIES = { film: FILM, operating: OPERATING };
+const PALETTES = window.PALETTES || {};
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-function loadProjects(data, title) {
-  currentCategoryData = data;
-  currentIndex = 0;
-  videoWrap.innerHTML = '';
-  projectList.innerHTML = '';
-  videoEls = [];
-  listTitle.textContent = title;
-  reelCount.textContent = `${data.length} · Reel '26`;
+/* ---------- Codec choice: AV1 first, HEVC for Safari without AV1 hardware ---------- */
+const TYPES = {
+  av1: 'video/mp4; codecs="av01.0.08M.10"',
+  hevc: 'video/mp4; codecs="hvc1.1.6.L120.90"',
+};
+const probe = document.createElement('video');
+let FORMAT = probe.canPlayType(TYPES.av1) ? 'av1' : probe.canPlayType(TYPES.hevc) ? 'hevc' : 'av1';
+const formatReady = (async () => {
+  if (!navigator.mediaCapabilities || FORMAT !== 'av1' || !probe.canPlayType(TYPES.hevc)) return;
+  // Phones that only decode AV1 in software do better with hardware HEVC.
+  const cfg = t => ({ type: 'file', video: { contentType: t, width: 1920, height: 1080, bitrate: 1500000, framerate: 24 } });
+  try {
+    const [a, h] = await Promise.all([navigator.mediaCapabilities.decodingInfo(cfg(TYPES.av1)),
+                                      navigator.mediaCapabilities.decodingInfo(cfg(TYPES.hevc))]);
+    if (!a.powerEfficient && h.supported && h.powerEfficient) FORMAT = 'hevc';
+  } catch (_) {}
+})();
+const videoSrc = slug => `${MEDIA}${slug}.${FORMAT}.mp4`;
+const posterSrc = slug => `${MEDIA}${slug}.webp`;
 
-  data.forEach((p, i) => {
-    let media;
-    if (p.videoUrl.match(/\.(jpeg|jpg|gif|png|webp)$/) != null) {
-      media = document.createElement('img');
-    } else {
-      media = document.createElement('video');
-      media.muted = true; media.loop = true; media.playsInline = true; media.preload = 'none';
-    }
-    if (media.tagName === 'IMG') {
-      media.src = p.videoUrl;
-    } else {
-      media.dataset.src = p.videoUrl;
-    }
-    if (p.pos) media.style.objectPosition = p.pos;
-    videoWrap.appendChild(media);
-    videoEls.push(media);
-  });
-
-  data.forEach((p, i) => {
-    const item = document.createElement('div');
-    item.className = 'project-item' + (i === 0 ? ' active' : '');
-    item.innerHTML = `<span class="item-num">${String(i + 1).padStart(2, '0')}</span><span class="item-title">${p.title}</span><span class="item-meta"><span class="item-type">${p.type}</span><span class="item-year">${p.year}</span></span>`;
-    
-    // Desktop Hover
-    item.addEventListener('mouseenter', () => activateProject(i));
-    // Touchscreen / Mobile Click
-    item.addEventListener('click', (e) => {
-      e.preventDefault();
-      activateProject(i);
-    });
-    
-    projectList.appendChild(item);
-  });
-  activateProject(0, true);
-}
-
-function activateProject(index, force = false) {
-  if (index === currentIndex && !force) return;
-  const prev = currentIndex;
-  currentIndex = index;
-  if (videoEls[prev]) { videoEls[prev].classList.remove('active'); if(videoEls[prev].tagName==='VIDEO') videoEls[prev].pause(); }
-  const next = videoEls[index];
-  if (next) {
-    if (next.tagName === 'VIDEO' && !next.src && next.dataset.src) { next.src = next.dataset.src; }
-    next.currentTime = 0; if(next.tagName==='VIDEO') next.play().catch(() => {}); next.classList.add('active');
+/* ---------- Palette: colours sampled from the footage drive the light spill ---------- */
+const ambient = document.getElementById('ambient');
+const indexEl = document.getElementById('index');
+const frameEl = document.getElementById('frame');
+function setPalette(cols, targets = [ambient, indexEl, frameEl]) {
+  if (!cols) return;
+  const key = cols.join();
+  for (const el of targets) {
+    if (el.dataset.palette === key) continue;   // each element tracks what it shows
+    el.dataset.palette = key;
+    el.style.setProperty('--c1', cols[0]);
+    el.style.setProperty('--c2', cols[1]);
+    el.style.setProperty('--c3', cols[2]);
   }
-  document.querySelectorAll('.project-item').forEach((el, i) => el.classList.toggle('active', i === index));
-  const swappable = document.querySelectorAll('.meta-swap');
-  swappable.forEach(el => el.classList.add('fade-out'));
-  clearTimeout(swapTimer);
-  swapTimer = setTimeout(() => {
-    const p = currentCategoryData[index];
-    metaTitle.textContent = p.title;
-    metaYear.textContent = p.year;
-    metaDir.textContent = p.director;
-    metaTags.textContent = p.tags;
-    metaTag.textContent = `Selected — ${p.type}`;
-    if (p.link && p.link !== "") { btnView.href = p.link; btnView.style.display = 'inline-flex'; } else { btnView.style.display = 'none'; }
-    metaLaurels.innerHTML = '';
-    if (p.laurels) { p.laurels.forEach(url => { const img = document.createElement('img'); img.src = url; metaLaurels.appendChild(img); }); }
-    swappable.forEach(el => el.classList.remove('fade-out'));
-  }, 220);
+}
+function paletteAt(slug, t) {
+  const p = PALETTES[slug];
+  if (!p || !p.p.length) return null;
+  const step = p.d / p.p.length;
+  return p.p[Math.min(p.p.length - 1, Math.max(0, Math.floor(t / step)))];
 }
 
-// ── NAVIGATION LOGIC ──
-const navLinks = document.querySelectorAll('.nav-links a');
-const aboutPage = document.getElementById('aboutPage');
-const contactPage = document.getElementById('contactPage');
-
-navLinks.forEach(link => {
-  link.addEventListener('click', (e) => {
-    const page = link.getAttribute('data-page');
-    
-    // Standard Active Link Handling
-    navLinks.forEach(l => l.classList.remove('active'));
-    link.classList.add('active');
-
-    // Overlay Handling
-    aboutPage.classList.remove('visible');
-    contactPage.classList.remove('visible');
-    mainStage.classList.remove('hidden-by-overlay');
-
-    if (page === 'about') {
-      aboutPage.classList.add('visible');
-      mainStage.classList.add('hidden-by-overlay');
-    } else if (page === 'contact') {
-      contactPage.classList.add('visible');
-      mainStage.classList.add('hidden-by-overlay');
-    } else if (page === 'film') {
-      loadProjects(filmProjects, 'Film & Documentary');
-    } else if (page === 'operating') {
-      loadProjects(operatingProjects, 'Camera Operating');
+// Stills have no precomputed timeline, so sample them once in the browser.
+const imagePalettes = new Map();
+function sampleImage(img) {
+  if (imagePalettes.has(img.src)) return imagePalettes.get(img.src);
+  let cols = null;
+  try {
+    const W = 48, H = 27, c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const ctx = c.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0, W, H);
+    const d = ctx.getImageData(0, 0, W, H).data;
+    const px = [], w = [];
+    for (let i = 0; i < d.length; i += 4) {
+      const r = d[i] / 255, g = d[i + 1] / 255, b = d[i + 2] / 255;
+      const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+      const s = mx ? (mx - mn) / mx : 0;
+      px.push([r, g, b]);
+      w.push((0.15 + s) * Math.pow(Math.max(mx - 0.06, 0), 0.8));
     }
+    const order = px.map((p, i) => i).sort((a, b) => lum(px[a]) - lum(px[b]));
+    let cent = [0.1, 0.5, 0.9].map(q => px[order[Math.floor(q * (order.length - 1))]].slice());
+    for (let it = 0; it < 10; it++) {
+      const acc = cent.map(() => [0, 0, 0, 0]);
+      px.forEach((p, i) => {
+        const k = nearest(cent, p);
+        acc[k][0] += p[0] * w[i]; acc[k][1] += p[1] * w[i]; acc[k][2] += p[2] * w[i]; acc[k][3] += w[i];
+      });
+      cent = acc.map((a, k) => a[3] ? [a[0] / a[3], a[1] / a[3], a[2] / a[3], a[3]] : [...cent[k].slice(0, 3), 0]);
+    }
+    cols = cent.sort((a, b) => b[3] - a[3]).map(([r, g, b]) => {
+      const mx = Math.max(r, g, b), f = mx < 0.35 ? 0.35 / Math.max(mx, 0.001) : 1;
+      return '#' + [r, g, b].map(v => Math.round(Math.min(1, v * f) * 255).toString(16).padStart(2, '0')).join('');
+    });
+  } catch (_) { cols = ['#3a3a3a', '#2a2a2a', '#1e1e1e']; }
+  imagePalettes.set(img.src, cols);
+  return cols;
+}
+const lum = p => p[0] * 0.3 + p[1] * 0.59 + p[2] * 0.11;
+function nearest(cent, p) {
+  let best = 0, bd = Infinity;
+  cent.forEach((c, k) => { const dd = (c[0] - p[0]) ** 2 + (c[1] - p[1]) ** 2 + (c[2] - p[2]) ** 2; if (dd < bd) { bd = dd; best = k; } });
+  return best;
+}
+
+/* ---------- Work view ---------- */
+const listEl = document.getElementById('list');
+const progressEl = document.getElementById('progress');
+const creditsEl = document.getElementById('credits');
+const cTitle = document.getElementById('cTitle');
+const cFacts = document.getElementById('cFacts');
+const cLaurels = document.getElementById('cLaurels');
+const cLink = document.getElementById('cLink');
+
+let category = null, items = [], slides = [], rows = [], current = -1;
+let dwellTimer = 0, leaveTimer = 0, creditTimer = 0;
+const MAX_LIVE = 3;          // decoders kept warm (most recently used)
+let live = [];
+let track = null;            // { video, slug } currently driving progress + palette
+
+function loadCategory(name) {
+  if (category === name) return;
+  category = name;
+  items = CATEGORIES[name];
+  for (const s of live) releaseVideo(s);
+  live = []; current = -1;
+  frameEl.textContent = ''; listEl.textContent = '';
+  slides = items.map(p => {
+    const el = document.createElement('div');
+    el.className = 'slide';
+    if (p.slug || p.image) {
+      const img = document.createElement('img');
+      img.alt = ''; img.decoding = 'async';
+      if (p.image) { img.crossOrigin = 'anonymous'; }
+      if (p.logo) img.className = 'logo';
+      el.append(img);
+      return { p, el, img, video: null };
+    }
+    el.innerHTML = `<div class="soon"><strong></strong><span>Footage coming soon</span></div>`;
+    el.querySelector('strong').textContent = p.title;
+    return { p, el, img: null, video: null };
+  });
+  frameEl.append(...slides.map(s => s.el));
+
+  rows = items.map((p, i) => {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'row';
+    b.innerHTML = '<span class="t"></span><span class="y"></span><span class="d"></span>';
+    b.querySelector('.t').textContent = p.title;
+    b.querySelector('.y').textContent = p.year;
+    b.querySelector('.d').textContent = p.director;
+    b.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') activate(i); });
+    b.addEventListener('focus', () => activate(i));
+    b.addEventListener('click', () => activate(i, { now: true }));
+    b.addEventListener('keydown', e => {
+      const step = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0;
+      if (!step) return;
+      e.preventDefault();
+      rows[(i + step + rows.length) % rows.length].focus();
+    });
+    li.append(b);
+    listEl.append(li);
+    return b;
+  });
+  indexEl.scrollTop = 0;
+  activate(0, { now: !calm, first: true });
+  idle(() => slides.forEach(s => { if (s.img && !s.img.src) s.img.src = s.p.image || posterSrc(s.p.slug); }));
+}
+
+function activate(i, { now = false, first = false } = {}) {
+  if (i === current) { if (now) startVideo(slides[i]); return; }
+  const prev = slides[current];
+  current = i;
+  const s = slides[i], p = s.p;
+
+  rows.forEach((r, k) => { r.classList.toggle('is-active', k === i); r.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+  if (!first && innerWidth > 900) rows[i].scrollIntoView({ block: 'nearest', behavior: calm ? 'auto' : 'smooth' });
+
+  // Picture: new slide fades over the old one, poster first, video when it is actually playing.
+  clearTimeout(leaveTimer);
+  for (const o of slides) {
+    if (o === s || o === prev) continue;
+    o.el.classList.remove('is-leaving');
+    if (o.video) o.video.pause();
+  }
+  if (prev) { prev.el.classList.remove('is-active'); prev.el.classList.add('is-leaving'); }
+  s.el.classList.remove('is-leaving'); s.el.classList.add('is-active');
+  leaveTimer = setTimeout(() => {
+    if (prev && prev !== slides[current]) { prev.el.classList.remove('is-leaving'); if (prev.video) prev.video.pause(); }
+  }, 520);
+
+  if (s.img) {
+    if (!s.img.src) s.img.src = p.image || posterSrc(p.slug);
+    if (p.image) {
+      const apply = () => { if (slides[current] === s) setPalette(sampleImage(s.img)); };
+      s.img.complete && s.img.naturalWidth ? apply() : s.img.addEventListener('load', apply, { once: true });
+    }
+  } else {
+    setPalette(['#2b2b2b', '#1d1d1d', '#151515']);
+  }
+
+  progressEl.style.transform = 'scaleX(0)';
+  track = null;
+  if (p.slug) {
+    setPalette(paletteAt(p.slug, s.video ? s.video.currentTime : 0));
+    clearTimeout(dwellTimer);
+    // Small hover-intent delay so sweeping the cursor down the list doesn't fetch every trailer.
+    dwellTimer = setTimeout(() => startVideo(s), now ? 0 : 140);
+  }
+
+  // Credits
+  clearTimeout(creditTimer);
+  const fill = () => {
+    cTitle.textContent = p.title;
+    const facts = [['Director', p.director], ['Format', p.format]];
+    if (p.role) facts.push(['Role', p.role]);
+    facts.push(['Year', p.year]);
+    cFacts.innerHTML = '';
+    for (const [k, v] of facts) {
+      const wrap = document.createElement('div');
+      const dt = document.createElement('dt'); dt.textContent = k;
+      const dd = document.createElement('dd'); dd.textContent = v;
+      wrap.append(dt, dd); cFacts.append(wrap);
+    }
+    cLaurels.innerHTML = '';
+    (p.laurels || []).forEach(l => { const im = new Image(); im.src = l.src; im.alt = l.alt; cLaurels.append(im); });
+    if (p.link) { cLink.href = p.link; cLink.hidden = false; } else { cLink.hidden = true; }
+    creditsEl.classList.remove('is-swapping');
+  };
+  if (first) fill();
+  else { creditsEl.classList.add('is-swapping'); creditTimer = setTimeout(fill, 180); }
+}
+
+async function startVideo(s) {
+  if (!s.p.slug || slides[current] !== s) return;
+  await formatReady;
+  if (!s.video) {
+    const v = document.createElement('video');
+    v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
+    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+    v.disablePictureInPicture = true;
+    v.setAttribute('aria-hidden', 'true');
+    v.addEventListener('playing', () => v.classList.add('is-on'));
+    s.el.append(v);
+    s.video = v;
+  }
+  if (!s.video.getAttribute('src')) s.video.src = videoSrc(s.p.slug);
+  live = [s, ...live.filter(o => o !== s)];
+  while (live.length > MAX_LIVE) releaseVideo(live.pop());
+  track = { video: s.video, slug: s.p.slug };
+  s.video.play().catch(() => {});
+}
+
+function releaseVideo(s) {
+  if (!s.video) return;
+  s.video.pause();
+  s.video.classList.remove('is-on');
+  s.video.removeAttribute('src');
+  s.video.load();
+}
+
+/* ---------- Long-form players (About) ---------- */
+const players = [...document.querySelectorAll('.player')];
+players.forEach(fig => {
+  const frame = fig.querySelector('.frame');
+  const slug = fig.dataset.slug;
+  frame.addEventListener('click', async () => {
+    if (fig.classList.contains('is-playing')) return;
+    await formatReady;
+    players.forEach(o => { if (o !== fig) { const ov = o.querySelector('video'); if (ov) ov.pause(); } });
+    let v = frame.querySelector('video');
+    if (!v) {
+      v = document.createElement('video');
+      v.controls = true; v.playsInline = true; v.preload = 'auto';
+      v.src = videoSrc(slug);
+      v.poster = posterSrc(slug);
+      frame.prepend(v);
+      v.addEventListener('play', () => {
+        players.forEach(o => { const ov = o.querySelector('video'); if (ov && ov !== v) ov.pause(); });
+        track = { video: v, slug };
+        ambient.classList.remove('is-low');
+      });
+      v.addEventListener('pause', () => ambient.classList.add('is-low'));
+    }
+    fig.classList.add('is-playing');
+    v.play().catch(() => {});
   });
 });
 
-[aboutPage, contactPage].forEach(p => p.addEventListener('click', (e) => { 
-  if(e.target === p) {
-    p.classList.remove('visible'); 
-    mainStage.classList.remove('hidden-by-overlay');
-    // Restore nav highlight to previous list page
-    navLinks.forEach(l => l.classList.remove('active'));
-    const categoryLink = currentCategoryData === filmProjects ? navLinks[0] : navLinks[1];
-    categoryLink.classList.add('active');
+/* ---------- One loop: progress line + palette follow the playing video ---------- */
+function tick() {
+  if (track && track.video.duration) {
+    const v = track.video;
+    if (!v.paused) setPalette(paletteAt(track.slug, v.currentTime), [ambient, indexEl, frameEl]);
+    if (v.closest('#work')) progressEl.style.transform = `scaleX(${(v.currentTime / v.duration).toFixed(4)})`;
   }
-}));
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
 
-// ── ABOUT VIDEO EXCLUSIVE PLAYBACK LOGIC ──
-const aboutVideos = [];
+/* ---------- Inquiry form (Web3Forms) ---------- */
+// Public key from web3forms.com; submissions are emailed to the address it was created with.
+const WEB3FORMS_KEY = 'e310c96c-71c4-48fd-ba78-b545b47aa16b';
+const form = document.getElementById('inquiry');
+const sent = document.getElementById('sent');
+const statusEl = document.getElementById('formStatus');
+const sendBtn = form.querySelector('.send');
+const RULES = {
+  name: v => v.trim() ? '' : 'Enter your name.',
+  email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? '' : 'Enter an email address I can reply to.',
+  subject: v => v.trim() ? '' : 'Add a subject.',
+  message: v => v.trim().length >= 10 ? '' : 'Give me more details please.',
+};
+function check(input) {
+  const msg = RULES[input.name](input.value);
+  const field = input.closest('.field');
+  field.classList.toggle('is-invalid', !!msg);
+  input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+  field.querySelector('.field-error').textContent = msg;
+  return !msg;
+}
+for (const name of Object.keys(RULES)) {
+  const input = form.elements[name];
+  input.addEventListener('blur', () => { if (input.value) check(input); });
+  input.addEventListener('input', () => { if (input.closest('.field').classList.contains('is-invalid')) check(input); });
+}
+function setStatus(text, error = false) {
+  statusEl.textContent = text;
+  statusEl.classList.toggle('is-error', error);
+}
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const bad = Object.keys(RULES).map(n => form.elements[n]).filter(i => !check(i));
+  if (bad.length) { bad[0].focus(); setStatus(''); return; }
+  if (form.elements.botcheck.checked) return;
+  if (WEB3FORMS_KEY.startsWith('YOUR_')) {
+    setStatus('This form is not connected yet. Email contact@jackabarry.com directly.', true);
+    return;
+  }
 
-function setupAboutVideo(containerId, videoId) {
-  const container = document.getElementById(containerId);
-  const video = document.getElementById(videoId);
-  const overlay = container.querySelector('.video-play-overlay');
-  const fsBtn = container.querySelector('.fullscreen-toggle');
-  
-  aboutVideos.push(video);
-
-  const stopOthers = () => {
-    aboutVideos.forEach(v => {
-      if (v !== video) {
-        v.pause();
-        v.muted = true;
-        const parent = v.closest('.about-video-wrap');
-        const ov = parent.querySelector('.video-play-overlay');
-        if (ov) ov.style.opacity = '1';
-      }
-    });
+  const data = Object.fromEntries(new FormData(form));
+  delete data.botcheck;
+  const payload = {
+    access_key: WEB3FORMS_KEY,
+    subject: `${data.subject.trim()} (from ${data.name.trim()})`,
+    from_name: 'jackabarry.com',
+    replyto: data.email.trim(),
+    name: data.name.trim(),
+    email: data.email.trim(),
+    message: data.message.trim(),
   };
 
-  container.addEventListener('mouseenter', () => {
-    stopOthers();
-    video.play().catch(() => {});
-  });
+  sendBtn.disabled = true; sendBtn.classList.add('is-busy');
+  sendBtn.firstElementChild.textContent = 'Sending';
+  setStatus('');
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const json = await res.json().catch(() => ({}));
+    if (!res.ok || !json.success) throw new Error(json.message || `HTTP ${res.status}`);
+    document.getElementById('sentNote').textContent =
+      `Thanks, ${payload.name.split(' ')[0]}. I'll reply to ${payload.email}.`;
+    form.hidden = true; sent.hidden = false;
+    sent.querySelector('h2').focus();
+  } catch (err) {
+    setStatus(navigator.onLine === false
+      ? 'You appear to be offline. Reconnect and send again; nothing you wrote has been lost.'
+      : 'The message did not go through. Send it again, or email contact@jackabarry.com directly.', true);
+  } finally {
+    sendBtn.disabled = false; sendBtn.classList.remove('is-busy');
+    sendBtn.firstElementChild.textContent = 'Send message';
+  }
+});
+document.getElementById('sendAnother').addEventListener('click', () => {
+  form.reset(); setStatus('');
+  sent.hidden = true; form.hidden = false;
+  form.elements.name.focus();
+});
 
-  container.addEventListener('mouseleave', () => {
-    if (video.muted) video.pause();
-  });
+/* ---------- Routing ---------- */
+const views = { work: document.getElementById('work'), about: document.getElementById('about'), contact: document.getElementById('contact') };
+const navLinks = [...document.querySelectorAll('.nav a')];
+function route() {
+  const name = (location.hash.slice(1) || 'film').toLowerCase();
+  const page = CATEGORIES[name] ? 'work' : views[name] ? name : 'work';
+  for (const [k, el] of Object.entries(views)) el.hidden = k !== page;
+  document.body.dataset.view = page;
+  if (page !== 'about') players.forEach(o => { const ov = o.querySelector('video'); if (ov) ov.pause(); });
+  document.body.classList.toggle('is-locked', page === 'work' && innerWidth > 900);
+  navLinks.forEach(a => a.toggleAttribute('aria-current', a.getAttribute('href') === '#' + (page === 'work' ? (CATEGORIES[name] ? name : 'film') : name)));
+  navLinks.forEach(a => a.hasAttribute('aria-current') && a.setAttribute('aria-current', 'page'));
 
-  fsBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (video.requestFullscreen) video.requestFullscreen();
-    else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
-  });
-
-  video.addEventListener('fullscreenchange', () => { video.controls = !!document.fullscreenElement; });
-  
-  container.addEventListener('click', () => {
-    if (video.muted) {
-      stopOthers();
-      video.muted = false;
-      video.currentTime = 0;
-      video.play();
-      overlay.style.opacity = '0';
-    } else {
-      video.muted = true;
-      overlay.style.opacity = '1';
-    }
-  });
+  if (page === 'work') {
+    ambient.classList.remove('is-low');
+    loadCategory(CATEGORIES[name] ? name : 'film');
+    const s = slides[current];
+    if (s && s.video && s.video.getAttribute('src')) { track = { video: s.video, slug: s.p.slug }; s.video.play().catch(() => {}); }
+    document.title = 'Jack Barry, Cinematographer';
+  } else {
+    const s = slides[current];
+    if (s && s.video) s.video.pause();
+    track = null;
+    ambient.classList.add('is-low');
+    setPalette(paletteAt(page === 'about' ? 'dp-reel' : '72-hours-on-gardraxis', 12) || ['#2b2b2b', '#1d1d1d', '#151515'], [ambient, frameEl, views[page]]);
+    document.querySelectorAll(`#${page} .frame`).forEach(f => { const c = paletteAt(f.closest('.player').dataset.slug, 20); if (c) { f.style.setProperty('--c1', c[0]); } });
+    document.title = (page === 'about' ? 'About' : 'Contact') + ' | Jack Barry, Cinematographer';
+    window.scrollTo(0, 0);
+  }
 }
+addEventListener('hashchange', route);
+addEventListener('resize', () => document.body.classList.toggle('is-locked', !views.work.hidden && innerWidth > 900));
+document.addEventListener('visibilitychange', () => {
+  if (!track) return;
+  if (document.hidden) track.video.pause();
+  else if (!views.work.hidden) track.video.play().catch(() => {});
+});
 
-setupAboutVideo('containerReel', 'vidReel');
-setupAboutVideo('containerBTS', 'vidBTS');
-setupAboutVideo('containerRecreation', 'vidRecreation');
+function idle(fn) { (window.requestIdleCallback || (f => setTimeout(f, 1200)))(fn, { timeout: 4000 }); }
 
-loadProjects(filmProjects, 'Film & Documentary');
+route();
+})();
 </script>
 </body>
 </html>
